@@ -2,167 +2,645 @@
 title: API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
+  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='http://code.dianpingoa.com/ed-f2e/dpmerchant'>项目地址</a>
+  - <a href='http://code.dianpingoa.com/ed-f2e/dpmerchant/issues'>Issue</a>
 
 includes:
-  - errors
+  - migration
 
 search: true
 ---
 
-# Introduction
+# 概述
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+dpmerchant是用于点评管家的jsbridge接入层，为web页面提供调用native功能的能力。dpmerchant是基于[dpapp](http://efte.github.io/dpapp/)的核心部分扩展而成，与dpapp功能大部分一致，少量功能因平台特性不同而不同。
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# 引入
 
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+> cortex方式
 
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```javascript
+var DPMer = require('dpmerchant');
 ```
 
-```python
-import kittn
+dpapp模块仅支持通过Cortex通过CommonJS标准的方式引入。
 
-api = kittn.authorize('meowmeowmeow')
+# 基础方法
+
+## 配置
+
+在开始之前，你可以选择配置dpmerchant
+
+```javascript
+  DPMer.config({
+    debug:true,
+    bizname:"your-bizname"
+  })
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+参数说明：
+debug: 是否开启调试模式。开启后会以alert的方式打印调试信息。默认为关闭。
+bizname: 调用`publish``store``retrieve`接口前需要该配置
+
+## 调用协议
+
+```javascript
+// 示例：调出分享界面
+DPMer.ready(function(){
+  DPMer.share({
+    title:"分享标题",
+    desc:"分享描述",
+    image:"http://www.dpfile.com/toevent/img/aasd.png",
+    url:"http://m.dianping.com",
+    success: function(){
+      alert('分享成功');
+    },
+    fail: function(e){
+      alert(e.errMsg);
+    }
+  });
+});
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+dpmerchant默认开启校验，目前的校验规则基于域名，即只有在点评的域名下才可以使用jsbridge，包含 alpha.dp、 51ping.com、 dpfile.com、 dianping.com。可以在测试版的debug控制台中关闭校验。
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+所有若非特别说明，方法接受一个javascript对象作为参数，其中success，fail分别为成功与失败后的回调。
+同时对于延时反馈的场景（如监听广播事件，按钮被点击的回调等），可以传入handle回调函数来处理。
+回调函数接受一个json对象作为参数。对象中的字段含义如下：
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+- status: 代表业务执行结果，其值为 success（成功），fail（失败），action（被动回调）或 cancel（主动取消）
+- result: 回调函数的执行结果，其值为 next（需要多次回调，执行后不销毁方法），error（执行错误），complete（执行成功）
+- errMsg: 业务执行为fail时的错误信息
 
-`Authorization: meowmeowmeow`
+所有方法调用之前，需要使用DPMer.ready确保native已就绪。
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+## 错误处理
 
-# Kittens
+错误处理分几个层级，首先可以在api调用的fail回调中，处理对应的错误。
+也可以配置`DPMer.onerror = handler`来接收未使用fail回调处理的错误。
+如果`DPMer.onerror`未定义，则会抛出`DPAppError`
+所有抛到window上的错误都会被记录到cat平台的js报错收集中
 
-## Get All Kittens
+## 版本比对
+```javascript
+DPMer.Semver.gt(versionA,versionB); // 是否大于
+DPMer.Semver.gte(versionA,versionB); // 是否大于等于
+DPMer.Semver.lt(versionA,versionB); // 是否小于
+DPMer.Semver.lte(versionA,versionB); // 是否小于等于
+DPMer.Semver.eq(versionA,versionB); // 是否相同
+```
+使用字符串比对并不严谨，比如 "6.2.1" < "6.10.1" 会返回 false。
+虽然通常app版本号第二位不会上两位数，不过推荐使用该api来比对版本。
 
-```ruby
-require 'kittn'
+## 判断是否支持某方法
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```javascript
+DPMer.isSupport(funcName); // 返回true|false
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+## 获取query参数
+```javascript
+DPMer.getQuery(); // 返回JSONObject
 ```
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
+#测试
 
-> The above command returns JSON structured like this:
+手机连上内网wifi，前往http://app.dp/ 下载对应的app（需v7.0.1及以上）
+在下方输入测试页面，使用app的扫码功能登录测试。
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+<p style="text-align:center">
+<input id="test-url" style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.1.0-beta/demo/demo.html" />
+<p>
+
+<p id="test-canvas" style="text-align:center"></p>
+
+
+
+如果使用模拟器调试，也可以通过进入`dpmer://web?url=<your-test-url>`来测试webview
+
+# 获取信息
+
+## 获取用户信息
+> version: all
+
+```javascript
+DPMer.getUserInfo({
+  success: function(e){
+    alert(e.dpid); // 用户的dpid
+    alert(e.userId); // 用户id 6.9.x 版本无法获得
+    alert(e.token); // 用户token
   }
-]
+});
 ```
 
-This endpoint retrieves all kittens.
+## 获取客户端环境信息
+> version: all
 
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+```javascript
+// 同步调用
+var ua = DPMer.getUA();
+alert(ua);
+// 异步调用（若需支持7.0之前的版本需要通过异步方法来得到ua）
+DPMer.getUA({
+  success: function(ua){
+    alert(ua);
+  }
+});
 ```
 
-```python
-import kittn
+值 | 描述
+--- | ----
+ua.platform | 平台 dpmerchant|web
+ua.appName | app名称 目前只支持主app，值为dianping，web中为null
+ua.appVersion | app版本号，如：7.0.1
+ua.osName | 设备系统名 android|iphone
+ua.osVersion | 设备系统版本号 4.4.2|8.0.2
+ua.packageId | app报名 7.1以上开始支持
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+
+## 获取网络状态
+> version: 3.6.0+
+
+```javascript
+DPMer.getNetworkType({
+  success: function(e){
+    alert(e.networkType); // 2g, 3g, 4g, wifi
+  }
+});
 ```
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+# 功能模块
+
+## openScheme
+> version: all
+
+```javascript
+DPMer.openScheme({
+  url: "dpmer://web",
+  extra: {
+    "url": "http://e.dianping.com"
+  }
+});
 ```
 
-> The above command returns JSON structured like this:
+打开scheme
 
-```json
-{
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+
+## jumpToScheme
+> version: 3.6.0+
+
+```javascript
+DPMer.jumpToScheme({
+  url: "dpmer://web",
+  extra: {
+    "url": "http://e.dianping.com"
+  }
+});
+```
+
+打开scheme，并关闭原窗口。
+
+## store
+> version: all
+
+```javascript
+DPMer.store({
+  key: "key",
+  value: "value"
+  success: function(){
+    // 存值成功
+  }
+});
+```
+
+向native本地空间存值
+
+为了避免命名冲突，使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置
+
+## retrieve
+> version: all
+
+```javascript
+DPMer.retrieve({
+  key: "key",
+  success: function(result){
+    // 获取值成功
+    // result.value
+  }
+});
+```
+
+向native本地空间取值
+
+为了避免命名冲突，使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置
+
+## Ajax请求
+> version: all
+
+```javascript
+DPMer.ajax({
+  url: "http://m.api.dianping.com/indextabicon.bin?cityid=1&version=7.0.1",
+  method: "get",
+  keys:[
+    "List",
+    "HotName",
+    "Id",
+    "Icon",
+    "Title",
+    "Url",
+    "Type"
+  ], // 字段映射表
+  success: function(data){
+    alert(data.Deal.ID);
+    alert(data.Deal.Price);
+  }
+});
+```
+
+支持版本：≥ 6.9.8
+
+对于DPObject的请求，由于后端返回的内容中，字段的key使用算法进行了非对称加密。
+
+调用方需要与后端确认这些key，作为参数传入，使得方法可以映射出可读的字段。
+
+在web中，业务方需要自行通过后端开放CORS等方式解决跨域问题。
+
+
+## 上传图片
+> version: 3.6.0+
+
+```javascript
+DPMer.uploadImage({
+  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url
+  compressFactor: 1024, // 上传图片压缩到多少尺寸以下，单位为K
+  maxNum: 1, // 选择图片数
+  extra: { // 业务参数
+    "referid": 101,
+    "shopaccountid": 102,
+    'title': 'pic'
+  }
+  handle: function(result){
+    alert(e.totalNum); // 图片上传张数
+    alert(e.image); // 服务器返回的数据结果
+    alert(e.progess); // start 开始上传, uploading 上传中, end 上传结束
+  }
+});
+```
+
+## 下载图片
+> version: 3.6.0+
+
+```javascript
+DPMer.downloadImage({
+  'imageUrl':'http://i1.dpfile.com/s/img/uc/default-avatar48c48.png',
+  'imageFormat':'png', //jpg,png
+  'quality':70,        // 0-100
+  'maxWidth':700,
+  'maxHeight':700,
+  'type':0,   //0:返回base64; 1:保存到相册
+  success: function(res){
+    alert("下载成功");
+    alert(res.imageData); // 图片base64数据，type为0时返回
+  }
+});
+```
+
+下载完成后，图片会出现在用户设备的资源库中。
+
+## 关闭webview
+> version: 3.6.0+
+
+```javascript
+DPMer.closeWindow();
+```
+
+## 分享
+> version: all
+
+```javascript
+DPMer.share({
+  title:"分享标题",
+  desc:"分享描述",
+  content:"分享内容",
+  image:"http://www.dpfile.com/toevent/img/16d05c85a71b135edc39d197273746d6.png",
+  url:"http://m.dianping.com",
+  feed: [DPMer.Share.WECHAT_FRIENDS, DPMer.Share.WECHAT_TIMELINE],
+  success: function(){
+    alert('分享成功');
+  }
+});
+```
+
+参数 | 说明
+---- | ----
+title | 标题
+desc | 分享描述
+content | 分享内容，覆盖 title 和 desc 拼接逻辑
+feed | 分享到的渠道，目前只支持微信和朋友圈(见示例)；默认为所有渠道
+
+有些分享渠道包含标题和内容，有些只有内容。
+对于只有内容的渠道，默认会拼接 title 和 desc 参数。
+当设定了 content 参数时，则会直接使用该参数的取值。
+
+# 收发消息
+
+## 订阅消息
+> version: all
+
+```javascript
+DPMer.subscribe({
+  action: 'loginSuccess',
+  success: function(e){
+    alert("订阅成功");
+  },
+  handle: function(e){
+    alert("事件触发");
+  }
+});
+```
+
+默认广播类型如下：
+
+名称 | 说明
+----+-----
+background | 应用切换到后台
+foreground | 应用切换回前台
+resize | 视图大小变化，键盘出现时会触发该事件，参数 `{from:{width:Number,height:Number},to:{width:Number,height:Number}}`
+appear | 视图展示
+disappear | 视图被隐藏
+
+
+
+## 取消订阅
+> version: 3.6.0+
+
+```javascript
+DPMer.unsubscribe({
+  action: 'loginSuccess',
+  handle: func, // 取消特定订阅回调，不传则取消所有回调
+  success: function(e){
+    alert("取消绑定")
+  }
+});
+```
+
+## 向native发布消息
+> version: all
+
+```javascript
+DPMer.config({
+  bizname:"your-biz-name"
+});
+
+DPMer.publish({
+  action: 'myMessage',
+  data: {
+    'info': 'detail'
+  },
+  success: function(){
+    alert("发送成功");
+  }
+});
+```
+支持版本：7.1.0
+
+注意，在web上因为没有native的参与，
+所有方法实际行为都在web一端发生。
+与传统的javascript sub/pub模式无异。
+
+为了避免命名冲突，使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置
+
+发布的事件名为 your-biz-name:myMessage 这样。
+预留的事件名之前不会加上bizname
+
+在native端
+
+> android
+
+```java
+IntentFilter intentFilter = new IntentFilter("your-biz-name:myMessage");
+registerReceiver(yourBroadCaseReceiver, intentFilter);
+```
+
+> ios
+
+```objective_c
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yourNotificationHandler:) name:@"your-biz-name:myMessage" object:nil];
+
+-(void)yourNotificationHandler:(NSNotification*)notification{
+    NSDictionary* data = notification.data;
+    // your logic
 }
 ```
 
-This endpoint retrieves a specific kitten.
+## native向web发布消息
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+> web
 
-### HTTP Request
+```javascript
+DPMer.subscribe({
+  action: 'customEvent',
+  success: function(e){
+    alert("订阅成功");
+  },
+  handle: function(e){
+    console.log(e.data);
+    alert("事件触发");
+  }
+});
+```
 
-`GET http://example.com/kittens/<ID>`
+> android
 
-### URL Parameters
+```java    
+// jsHost is an instance of ZeusFragment or its subclass
+        JSONObject jsonData = new JSONObject();
+        String action = "switchCity";
+        try {
+            jsonData.put("action", action);
+            jsonData.put("cityId", to.id());
+        } catch (JSONException e) {
+            Log.e(e.toString());
+        }
+        jsHost.publish(jsonData); 
+```
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+> ios
 
+```objective_c
+NVWebViewController+Broadcast subscribeActionMapping方法添加通知映射，如@"loginSuccess":@[NVAccountSwitched]；(void)onWebViewBroadcast:(NSNotification *)notification方法实现业务逻辑
+```
+
+# UI界面
+
+## 设置标题
+> version: all
+
+```javascript
+DPMer.setTitle({
+  title: "标题",
+  subtitle: "副标题",
+  success: function(){}
+});
+```
+
+3.5.x及之前只支持设置标题，不支持设置副标题。
+
+## 下拉刷新
+> version: 3.6.0+
+
+```javascript
+DPMer.ready(function(){
+  // 设置下拉刷新
+  DPMer.setPullDown({
+    success: function(){
+      console.log("设置成功");
+    },
+    fail: function(){
+      console.log("设置失败");
+    },
+    handle: function(){
+      $.ajax({
+        // ... 
+        success: function(){
+          // 停止下拉刷新
+          DPMer.stopPullDown({
+            success: function(){
+              console.log("设置成功");
+            },
+            fail: function(){
+              console.log("设置失败");
+            }
+          });
+        }
+      });
+    }
+  });
+});
+```
+
+
+
+## 设置导航栏按钮
+> version: 
+
+```javascript
+DPMer.setLLButton({
+  text: "文字",
+  icon: "H5_Search", // 同时定义icon和text时，将只有icon生效
+  success: function(){
+    alert("设置成功");
+  },
+  handle: function(){
+    alert("按钮被点击");
+  }
+});
+```
+
+包含一组共4个方法。
+
+方法名 | 说明
+------+-------
+setLLButton | 左上角第一个按钮
+setLRButton | 左上角第二个按钮
+setRLButton | 右上角第一个按钮
+setRRButton | 右上角第二个按钮
+
+各按钮位置如图所示：
+
+```
+┌────┬────┬─────────────┬────┬────┐
+│ LL │ LR │    Title    │ RL │ RR │
+└────┴────┴─────────────┴────┴────┘
+
+```
+
+文字按钮或者图片按钮。
+icon属性定义了本地资源的名称。
+支持的icon类型如下：
+
+名称 | 说明
+-----+------
+H5_Search | 代表搜索的放大镜按钮
+H5_Back | 代表返回的向左箭头
+H5_Custom_Back | 向左箭头及“返回”文字
+H5_Share | 代表分享的方框及箭头
+
+注意事项：
+
+* 在iOS上，如果定义了RL按钮而没有定义RR按钮，RL按钮将不显示。
+
+## 提示对话框
+> version: 3.6.0+
+
+弹出原生的提示对话框（类似于window.alert）。
+
+```javascript
+DPMer.alert({
+    title: 'title', // 标题文字
+    message: 'message', // 内容文字
+    button: 'button', // 按钮文字
+    success: function(){
+        // 用户点击确认
+    }
+});
+```
+
+## 确认对话框
+> version: 3.6.0+
+
+弹出原生的确认对话框（类似于window.confirm），允许用户确认或取消。
+
+```javascript
+DPMer.confirm({
+    title: 'title', // 标题文字
+    message: 'message', // 内容文字
+    okButton: 'OK', // 确认按钮文字
+    cancelButton: 'Cancel', // 取消按钮文字
+    success: function(e) {
+        // 用户点击确认或取消
+        if (e.ret) {} // true: 确认 false: 取消
+    }
+});
+```
+
+## 输入对话框
+> version: 3.6.0+
+
+弹出原生的输入对话框（类似于window.prompt），允许用户输入一段文字，确认或取消。
+
+```javascript
+DPMer.prompt({
+    title: 'title', // 标题文字
+    message: 'message', // 内容文字
+    placeholder: 'placeholder', // 输入框默认文字
+    okButton: 'btnconfirm', // 确认按钮文字
+    cancelButton: 'btncancel', // 取消按钮文字
+    success: function(e) {
+        // 用户点击确认或取消
+        if (e.ret) {
+            // true: 确认 false: 取消
+            alert(e.text); // 用户输入的文字
+        }
+    }
+});
+```
+
+## 浮层提示(toast)
+> version: 3.6.0+
+
+弹出一段简短的信息，一定时间后消失。
+
+```javascript
+DPMer.toast({
+    title: 'title', // 文字
+    timeout: 2000 // 持续时间
+});
+```
+
+注意事项：
+
+* 安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
