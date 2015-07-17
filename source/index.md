@@ -28,7 +28,7 @@ var DPMer = require('dpmerchant');
 
 dpapp模块仅支持通过Cortex通过CommonJS标准的方式引入。
 
-# 基础方法
+# 基本用法
 
 ## 配置
 
@@ -124,20 +124,22 @@ DPMer.getQuery(); // 返回JSONObject
 # 获取信息
 
 ## 获取用户信息
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.getUserInfo({
-  success: function(e){
-    alert(e.dpid); // 用户的dpid
-    alert(e.userId); // 用户id 6.9.x 版本无法获得
-    alert(e.token); // 用户token
+  success: function(i){
+    alert(i.dpid); // 用户的dpid
+    alert(i.userId); // 用户id
+    alert(i.edper); // edper
+    alert(i.shopId); // 商户id
+    alert(i.shopAccountId); // shopAccountId
   }
 });
 ```
 
 ## 获取客户端环境信息
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 // 同步调用
@@ -153,21 +155,19 @@ DPMer.getUA({
 
 值 | 描述
 --- | ----
-ua.platform | 平台 dpmerchant|web
-ua.appName | app名称 目前只支持主app，值为dianping，web中为null
+ua.platform | 平台 dpmerchant|other
+ua.appName | app名称 目前只支持点评管家app，值为dpmerchant
 ua.appVersion | app版本号，如：7.0.1
 ua.osName | 设备系统名 android|iphone
 ua.osVersion | 设备系统版本号 4.4.2|8.0.2
-ua.packageId | app报名 7.1以上开始支持
-
 
 ## 获取网络状态
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.getNetworkType({
   success: function(e){
-    alert(e.networkType); // 2g, 3g, 4g, wifi
+    alert(e.networkType); // 2g, 3g, 4g, wifi, none
   }
 });
 ```
@@ -175,7 +175,7 @@ DPMer.getNetworkType({
 # 功能模块
 
 ## openScheme
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.openScheme({
@@ -190,7 +190,7 @@ DPMer.openScheme({
 
 
 ## jumpToScheme
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.jumpToScheme({
@@ -204,7 +204,7 @@ DPMer.jumpToScheme({
 打开scheme，并关闭原窗口。
 
 ## store
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.store({
@@ -218,10 +218,10 @@ DPMer.store({
 
 向native本地空间存值
 
-为了避免命名冲突，使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置
+<aside class="notice">使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置</aside>
 
 ## retrieve
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.retrieve({
@@ -235,10 +235,27 @@ DPMer.retrieve({
 
 向native本地空间取值
 
-为了避免命名冲突，使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置
+<aside class="notice">使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置</aside>
+
+## delete
+<aside class="success">all version</aside>
+
+```javascript
+DPMer.delete({
+  key: "key",
+  success: function(){
+    // 删除成功
+  }
+});
+```
+
+删除本地存储的值
+
+<aside class="notice">使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置</aside>
+
 
 ## Ajax请求
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.ajax({
@@ -260,8 +277,6 @@ DPMer.ajax({
 });
 ```
 
-支持版本：≥ 6.9.8
-
 对于DPObject的请求，由于后端返回的内容中，字段的key使用算法进行了非对称加密。
 
 调用方需要与后端确认这些key，作为参数传入，使得方法可以映射出可读的字段。
@@ -270,7 +285,7 @@ DPMer.ajax({
 
 
 ## 上传图片
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.uploadImage({
@@ -278,9 +293,12 @@ DPMer.uploadImage({
   compressFactor: 1024, // 上传图片压缩到多少尺寸以下，单位为K
   maxNum: 1, // 选择图片数
   extra: { // 业务参数
-    "referid": 101,
-    "shopaccountid": 102,
-    'title': 'pic'
+    referid: 101,
+    shopaccountid: 102,
+    title: 'pic',
+    height: 90,
+    width: 120,
+    visitmode: 'x'
   }
   handle: function(result){
     alert(e.totalNum); // 图片上传张数
@@ -291,7 +309,7 @@ DPMer.uploadImage({
 ```
 
 ## 下载图片
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.downloadImage({
@@ -311,14 +329,14 @@ DPMer.downloadImage({
 下载完成后，图片会出现在用户设备的资源库中。
 
 ## 关闭webview
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.closeWindow();
 ```
 
 ## 分享
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.share({
@@ -348,7 +366,7 @@ feed | 分享到的渠道，目前只支持微信和朋友圈(见示例)；默�
 # 收发消息
 
 ## 订阅消息
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.subscribe({
@@ -375,7 +393,7 @@ disappear | 视图被隐藏
 
 
 ## 取消订阅
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.unsubscribe({
@@ -388,7 +406,7 @@ DPMer.unsubscribe({
 ```
 
 ## 向native发布消息
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.config({
@@ -405,7 +423,6 @@ DPMer.publish({
   }
 });
 ```
-支持版本：7.1.0
 
 注意，在web上因为没有native的参与，
 所有方法实际行为都在web一端发生。
@@ -477,7 +494,7 @@ NVWebViewController+Broadcast subscribeActionMapping方法添加通知映射，�
 # UI界面
 
 ## 设置标题
-> version: all
+<aside class="success">all version</aside>
 
 ```javascript
 DPMer.setTitle({
@@ -487,10 +504,10 @@ DPMer.setTitle({
 });
 ```
 
-3.5.x及之前只支持设置标题，不支持设置副标题。
+<aside class="notice">3.5.x及之前只支持设置标题，不支持设置副标题。</aside>
 
 ## 下拉刷新
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.ready(function(){
@@ -549,14 +566,6 @@ setLRButton | 左上角第二个按钮
 setRLButton | 右上角第一个按钮
 setRRButton | 右上角第二个按钮
 
-各按钮位置如图所示：
-
-```
-┌────┬────┬─────────────┬────┬────┐
-│ LL │ LR │    Title    │ RL │ RR │
-└────┴────┴─────────────┴────┴────┘
-
-```
 
 文字按钮或者图片按钮。
 icon属性定义了本地资源的名称。
@@ -569,12 +578,12 @@ H5_Back | 代表返回的向左箭头
 H5_Custom_Back | 向左箭头及“返回”文字
 H5_Share | 代表分享的方框及箭头
 
-注意事项：
-
-* 在iOS上，如果定义了RL按钮而没有定义RR按钮，RL按钮将不显示。
+<aside class="notice">
+在iOS上，如果定义了RL按钮而没有定义RR按钮，RL按钮将不显示。
+</aside>
 
 ## 提示对话框
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 弹出原生的提示对话框（类似于window.alert）。
 
@@ -590,7 +599,7 @@ DPMer.alert({
 ```
 
 ## 确认对话框
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 弹出原生的确认对话框（类似于window.confirm），允许用户确认或取消。
 
@@ -608,7 +617,7 @@ DPMer.confirm({
 ```
 
 ## 输入对话框
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 弹出原生的输入对话框（类似于window.prompt），允许用户输入一段文字，确认或取消。
 
@@ -630,7 +639,7 @@ DPMer.prompt({
 ```
 
 ## 浮层提示(toast)
-> version: 3.6.0+
+<aside class="success">3.6.0+</aside>
 
 弹出一段简短的信息，一定时间后消失。
 
@@ -641,6 +650,6 @@ DPMer.toast({
 });
 ```
 
-注意事项：
-
-* 安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
+<aside class="notice">
+安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
+</aside>
