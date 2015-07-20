@@ -108,12 +108,14 @@ DPMer.getQuery(); // 返回JSONObject
 
 #测试
 
-手机连上内网wifi，前往http://app.dp/ 下载对应的app（需v7.0.1及以上）
-在下方输入测试页面，使用app的扫码功能登录测试。
+手机连上内网wifi，前往http://app.dp/ 下载对应的app（需v3.6.0及以上）
+
+扫描以下二维码进入测试页面:
 
 <p style="text-align:center">
-<input id="test-url" style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.1.0-beta/demo/demo.html" />
-<p>
+<img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.1.0-beta/demo/demo.html" />
+</p>
 
 <p id="test-canvas" style="text-align:center"></p>
 
@@ -366,11 +368,11 @@ feed | 分享到的渠道，目前只支持微信和朋友圈(见示例)；默�
 # 收发消息
 
 ## 订阅消息
-<aside class="success">all version</aside>
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.subscribe({
-  action: 'loginSuccess',
+  action: 'appear',
   success: function(e){
     alert("订阅成功");
   },
@@ -489,6 +491,47 @@ DPMer.subscribe({
 
 ```objective_c
 NVWebViewController+Broadcast subscribeActionMapping方法添加通知映射，如@"loginSuccess":@[NVAccountSwitched]；(void)onWebViewBroadcast:(NSNotification *)notification方法实现业务逻辑
+```
+
+## 弱消息
+<aside class="success">all version</aside>
+<aside class="warning">弱消息可能存在消息丢失等问题，仅用于兼容从efte迁移的项目，不推荐在新项目中使用。建议使用appear事件结合store/retrieve实现类似需求。</aside>
+> 使用前，需先指定bizname
+
+```javascript
+DPMer.config({
+  bizname:"your-biz-name"
+});
+```
+
+### 订阅消息
+`DPMer.weakSubscribe`
+
+```javascript
+DPMer.weakSubscribe({
+  action: 'custom-event',
+  success: function(e){
+    alert("订阅成功");
+  },
+  handle: function(e){
+    alert("事件触发");
+  }
+});
+```
+
+### 发布消息
+`DPMer.weakPublish`
+
+```javascript
+DPMer.weakPublish({
+  action: 'custom-event',
+  data: {
+    'info': 'detail'
+  },
+  success: function(){
+    alert("发送成功");
+  }
+});
 ```
 
 # UI界面
