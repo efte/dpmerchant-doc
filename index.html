@@ -1,0 +1,905 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="javascripts/contrib/jquery-2.1.4.min.js" type="text/javascript"></script>
+      <script src="javascripts/all.js" type="text/javascript"></script>
+
+      <script>
+        $(function() {
+          setupLanguages(["javascript"]);
+        });
+      </script>
+  </head>
+
+  <body class="index">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='http://code.dianpingoa.com/ed-f2e/dpmerchant'>项目地址</a></li>
+            <li><a href='http://code.dianpingoa.com/ed-f2e/dpmerchant/issues'>Issue</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="概述">概述</h1>
+
+<p>dpmerchant是用于点评管家的jsbridge接入层，为web页面提供调用native功能的能力。dpmerchant是基于<a href="http://efte.github.io/dpapp/">dpapp</a>的核心部分扩展而成，与dpapp功能大部分一致，少量功能因平台特性不同而不同。</p>
+
+<h1 id="引入">引入</h1>
+
+<blockquote>
+<p>cortex方式</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">DPMer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dpmerchant'</span><span class="p">);</span>
+</code></pre>
+
+<p>dpapp模块仅支持通过Cortex通过CommonJS标准的方式引入。</p>
+
+<h1 id="基本用法">基本用法</h1>
+
+<h2 id="配置">配置</h2>
+
+<p>在开始之前，你可以选择配置dpmerchant</p>
+<pre class="highlight javascript"><code>  <span class="nx">DPMer</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+    <span class="na">debug</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="na">bizname</span><span class="p">:</span><span class="s2">"your-bizname"</span>
+  <span class="p">})</span>
+</code></pre>
+
+<p>参数说明：
+debug: 是否开启调试模式。开启后会以alert的方式打印调试信息。默认为关闭。
+bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint">store</code><code class="prettyprint">retrieve</code>接口前需要该配置</p>
+
+<h2 id="调用协议">调用协议</h2>
+<pre class="highlight javascript"><code><span class="c1">// 示例：调出分享界面</span>
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">DPMer</span><span class="p">.</span><span class="nx">share</span><span class="p">({</span>
+    <span class="na">title</span><span class="p">:</span><span class="s2">"分享标题"</span><span class="p">,</span>
+    <span class="na">desc</span><span class="p">:</span><span class="s2">"分享描述"</span><span class="p">,</span>
+    <span class="na">image</span><span class="p">:</span><span class="s2">"http://www.dpfile.com/toevent/img/aasd.png"</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span><span class="s2">"http://m.dianping.com"</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">'分享成功'</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="na">fail</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">errMsg</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>dpmerchant默认开启校验，目前的校验规则基于域名，即只有在点评的域名下才可以使用jsbridge，包含 alpha.dp、 51ping.com、 dpfile.com、 dianping.com。可以在测试版的debug控制台中关闭校验。</p>
+
+<p>所有若非特别说明，方法接受一个javascript对象作为参数，其中success，fail分别为成功与失败后的回调。
+同时对于延时反馈的场景（如监听广播事件，按钮被点击的回调等），可以传入handle回调函数来处理。
+回调函数接受一个json对象作为参数。对象中的字段含义如下：</p>
+
+<ul>
+<li>status: 代表业务执行结果，其值为 success（成功），fail（失败），action（被动回调）或 cancel（主动取消）</li>
+<li>result: 回调函数的执行结果，其值为 next（需要多次回调，执行后不销毁方法），error（执行错误），complete（执行成功）</li>
+<li>errMsg: 业务执行为fail时的错误信息</li>
+</ul>
+
+<p>所有方法调用之前，需要使用DPMer.ready确保native已就绪。</p>
+
+<h2 id="错误处理">错误处理</h2>
+
+<p>错误处理分几个层级，首先可以在api调用的fail回调中，处理对应的错误。
+也可以配置<code class="prettyprint">DPMer.onerror = handler</code>来接收未使用fail回调处理的错误。
+如果<code class="prettyprint">DPMer.onerror</code>未定义，则会抛出<code class="prettyprint">DPAppError</code>
+所有抛到window上的错误都会被记录到cat平台的js报错收集中</p>
+
+<h2 id="版本比对">版本比对</h2>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">Semver</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="nx">versionA</span><span class="p">,</span><span class="nx">versionB</span><span class="p">);</span> <span class="c1">// 是否大于</span>
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">Semver</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="nx">versionA</span><span class="p">,</span><span class="nx">versionB</span><span class="p">);</span> <span class="c1">// 是否大于等于</span>
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">Semver</span><span class="p">.</span><span class="nx">lt</span><span class="p">(</span><span class="nx">versionA</span><span class="p">,</span><span class="nx">versionB</span><span class="p">);</span> <span class="c1">// 是否小于</span>
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">Semver</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="nx">versionA</span><span class="p">,</span><span class="nx">versionB</span><span class="p">);</span> <span class="c1">// 是否小于等于</span>
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">Semver</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">versionA</span><span class="p">,</span><span class="nx">versionB</span><span class="p">);</span> <span class="c1">// 是否相同</span>
+</code></pre>
+
+<p>使用字符串比对并不严谨，比如 &ldquo;6.2.1&rdquo; &lt; &ldquo;6.10.1&rdquo; 会返回 false。
+虽然通常app版本号第二位不会上两位数，不过推荐使用该api来比对版本。</p>
+
+<h2 id="判断是否支持某方法">判断是否支持某方法</h2>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">isSupport</span><span class="p">(</span><span class="nx">funcName</span><span class="p">);</span> <span class="c1">// 返回true|false</span>
+</code></pre>
+
+<h2 id="获取query参数">获取query参数</h2>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getQuery</span><span class="p">();</span> <span class="c1">// 返回JSONObject</span>
+</code></pre>
+
+<h1 id="测试">测试</h1>
+
+<p>手机连上内网wifi，前往http://app.dp/ 下载对应的app（需v3.6.0及以上）</p>
+
+<p>扫描以下二维码进入测试页面:</p>
+
+<p style="text-align:center">
+<img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.1.0-beta/demo/demo.html" />
+</p>
+
+<p id="test-canvas" style="text-align:center"></p>
+
+<p>如果使用模拟器调试，也可以通过进入<code class="prettyprint">dpmer://web?url=&lt;your-test-url&gt;</code>来测试webview</p>
+
+<h1 id="获取信息">获取信息</h1>
+
+<h2 id="获取用户信息">获取用户信息</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUserInfo</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">dpid</span><span class="p">);</span> <span class="c1">// 用户的dpid</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">userId</span><span class="p">);</span> <span class="c1">// 用户id</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">edper</span><span class="p">);</span> <span class="c1">// edper</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">shopId</span><span class="p">);</span> <span class="c1">// 商户id</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">shopAccountId</span><span class="p">);</span> <span class="c1">// shopAccountId</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="获取客户端环境信息">获取客户端环境信息</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="c1">// 同步调用</span>
+<span class="kd">var</span> <span class="nx">ua</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUA</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">ua</span><span class="p">);</span>
+<span class="c1">// 异步调用（若需支持7.0之前的版本需要通过异步方法来得到ua）</span>
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUA</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ua</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">ua</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ua.platform</td>
+<td>平台 dpmerchant</td>
+</tr>
+<tr>
+<td>ua.appName</td>
+<td>app名称 目前只支持点评管家app，值为dpmerchant</td>
+</tr>
+<tr>
+<td>ua.appVersion</td>
+<td>app版本号，如：7.0.1</td>
+</tr>
+<tr>
+<td>ua.osName</td>
+<td>设备系统名 android</td>
+</tr>
+<tr>
+<td>ua.osVersion</td>
+<td>设备系统版本号 4.4.2</td>
+</tr>
+</tbody></table>
+
+<h2 id="获取网络状态">获取网络状态</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getNetworkType</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">networkType</span><span class="p">);</span> <span class="c1">// 2g, 3g, 4g, wifi, none</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h1 id="功能模块">功能模块</h1>
+
+<h2 id="openscheme">openScheme</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">openScheme</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"dpmer://web"</span><span class="p">,</span>
+  <span class="na">extra</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://e.dianping.com"</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>打开scheme</p>
+
+<h2 id="jumptoscheme">jumpToScheme</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">jumpToScheme</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"dpmer://web"</span><span class="p">,</span>
+  <span class="na">extra</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://e.dianping.com"</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>打开scheme，并关闭原窗口。</p>
+
+<h2 id="store">store</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">store</span><span class="p">({</span>
+  <span class="na">key</span><span class="p">:</span> <span class="s2">"key"</span><span class="p">,</span>
+  <span class="na">value</span><span class="p">:</span> <span class="s2">"value"</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// 存值成功</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>向native本地空间存值</p>
+
+<aside class="notice">使用前需要先使用`DPMer.config({bizname:&ldquo;your-biz-name&rdquo;});`进行配置</aside>
+
+<h2 id="retrieve">retrieve</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">retrieve</span><span class="p">({</span>
+  <span class="na">key</span><span class="p">:</span> <span class="s2">"key"</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
+    <span class="c1">// 获取值成功</span>
+    <span class="c1">// result.value</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>向native本地空间取值</p>
+
+<aside class="notice">使用前需要先使用`DPMer.config({bizname:&ldquo;your-biz-name&rdquo;});`进行配置</aside>
+
+<h2 id="delete">delete</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="k">delete</span><span class="p">({</span>
+  <span class="na">key</span><span class="p">:</span> <span class="s2">"key"</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// 删除成功</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>删除本地存储的值</p>
+
+<aside class="notice">使用前需要先使用`DPMer.config({bizname:&ldquo;your-biz-name&rdquo;});`进行配置</aside>
+
+<h2 id="ajax请求">Ajax请求</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">"http://m.api.dianping.com/indextabicon.bin?cityid=1&amp;version=7.0.1"</span><span class="p">,</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s2">"get"</span><span class="p">,</span>
+  <span class="na">keys</span><span class="p">:[</span>
+    <span class="s2">"List"</span><span class="p">,</span>
+    <span class="s2">"HotName"</span><span class="p">,</span>
+    <span class="s2">"Id"</span><span class="p">,</span>
+    <span class="s2">"Icon"</span><span class="p">,</span>
+    <span class="s2">"Title"</span><span class="p">,</span>
+    <span class="s2">"Url"</span><span class="p">,</span>
+    <span class="s2">"Type"</span>
+  <span class="p">],</span> <span class="c1">// 字段映射表</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">Deal</span><span class="p">.</span><span class="nx">ID</span><span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">Deal</span><span class="p">.</span><span class="nx">Price</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>对于DPObject的请求，由于后端返回的内容中，字段的key使用算法进行了非对称加密。</p>
+
+<p>调用方需要与后端确认这些key，作为参数传入，使得方法可以映射出可读的字段。</p>
+
+<p>在web中，业务方需要自行通过后端开放CORS等方式解决跨域问题。</p>
+
+<h2 id="上传图片">上传图片</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">uploadImage</span><span class="p">({</span>
+  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url</span>
+  <span class="na">compressFactor</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1">// 上传图片压缩到多少尺寸以下，单位为K</span>
+  <span class="na">maxNum</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// 选择图片数</span>
+  <span class="na">extra</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 业务参数</span>
+    <span class="na">referid</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
+    <span class="na">shopaccountid</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'pic'</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+    <span class="na">width</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+    <span class="na">visitmode</span><span class="p">:</span> <span class="s1">'x'</span>
+  <span class="p">}</span>
+  <span class="nl">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">totalNum</span><span class="p">);</span> <span class="c1">// 图片上传张数</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">image</span><span class="p">);</span> <span class="c1">// 服务器返回的数据结果</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">progess</span><span class="p">);</span> <span class="c1">// start 开始上传, uploading 上传中, end 上传结束</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="下载图片">下载图片</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">downloadImage</span><span class="p">({</span>
+  <span class="s1">'imageUrl'</span><span class="p">:</span><span class="s1">'http://i1.dpfile.com/s/img/uc/default-avatar48c48.png'</span><span class="p">,</span>
+  <span class="s1">'imageFormat'</span><span class="p">:</span><span class="s1">'png'</span><span class="p">,</span> <span class="c1">//jpg,png</span>
+  <span class="s1">'quality'</span><span class="p">:</span><span class="mi">70</span><span class="p">,</span>        <span class="c1">// 0-100</span>
+  <span class="s1">'maxWidth'</span><span class="p">:</span><span class="mi">700</span><span class="p">,</span>
+  <span class="s1">'maxHeight'</span><span class="p">:</span><span class="mi">700</span><span class="p">,</span>
+  <span class="s1">'type'</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>   <span class="c1">//0:返回base64; 1:保存到相册</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"下载成功"</span><span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">imageData</span><span class="p">);</span> <span class="c1">// 图片base64数据，type为0时返回</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>下载完成后，图片会出现在用户设备的资源库中。</p>
+
+<h2 id="关闭webview">关闭webview</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">closeWindow</span><span class="p">();</span>
+</code></pre>
+
+<h2 id="分享">分享</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">share</span><span class="p">({</span>
+  <span class="na">title</span><span class="p">:</span><span class="s2">"分享标题"</span><span class="p">,</span>
+  <span class="na">desc</span><span class="p">:</span><span class="s2">"分享描述"</span><span class="p">,</span>
+  <span class="na">content</span><span class="p">:</span><span class="s2">"分享内容"</span><span class="p">,</span>
+  <span class="na">image</span><span class="p">:</span><span class="s2">"http://www.dpfile.com/toevent/img/16d05c85a71b135edc39d197273746d6.png"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span><span class="s2">"http://m.dianping.com"</span><span class="p">,</span>
+  <span class="na">feed</span><span class="p">:</span> <span class="p">[</span><span class="nx">DPMer</span><span class="p">.</span><span class="nx">Share</span><span class="p">.</span><span class="nx">WECHAT_FRIENDS</span><span class="p">,</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">Share</span><span class="p">.</span><span class="nx">WECHAT_TIMELINE</span><span class="p">],</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'分享成功'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>desc</td>
+<td>分享描述</td>
+</tr>
+<tr>
+<td>content</td>
+<td>分享内容，覆盖 title 和 desc 拼接逻辑</td>
+</tr>
+<tr>
+<td>feed</td>
+<td>分享到的渠道，目前只支持微信和朋友圈(见示例)；默认为所有渠道</td>
+</tr>
+</tbody></table>
+
+<p>有些分享渠道包含标题和内容，有些只有内容。
+对于只有内容的渠道，默认会拼接 title 和 desc 参数。
+当设定了 content 参数时，则会直接使用该参数的取值。</p>
+
+<h1 id="收发消息">收发消息</h1>
+
+<h2 id="订阅消息">订阅消息</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'appear'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"订阅成功"</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"事件触发"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>默认广播类型如下：</p>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>background</td>
+<td>应用切换到后台</td>
+</tr>
+<tr>
+<td>foreground</td>
+<td>应用切换回前台</td>
+</tr>
+<tr>
+<td>resize</td>
+<td>视图大小变化，键盘出现时会触发该事件，参数 <code class="prettyprint">{from:{width:Number,height:Number},to:{width:Number,height:Number}}</code></td>
+</tr>
+<tr>
+<td>appear</td>
+<td>视图展示</td>
+</tr>
+<tr>
+<td>disappear</td>
+<td>视图被隐藏</td>
+</tr>
+</tbody></table>
+
+<h2 id="取消订阅">取消订阅</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">({</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'loginSuccess'</span><span class="p">,</span>
+  <span class="na">handle</span><span class="p">:</span> <span class="nx">func</span><span class="p">,</span> <span class="c1">// 取消特定订阅回调，不传则取消所有回调</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"取消绑定"</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="向native发布消息">向native发布消息</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+  <span class="na">bizname</span><span class="p">:</span><span class="s2">"your-biz-name"</span>
+<span class="p">});</span>
+
+<span class="nx">DPMer</span><span class="p">.</span><span class="nx">publish</span><span class="p">({</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'myMessage'</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">'info'</span><span class="p">:</span> <span class="s1">'detail'</span>
+  <span class="p">},</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"发送成功"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>注意，在web上因为没有native的参与，
+所有方法实际行为都在web一端发生。
+与传统的javascript sub/pub模式无异。</p>
+
+<p>为了避免命名冲突，使用前需要先使用<code class="prettyprint">DPMer.config({bizname:&quot;your-biz-name&quot;});</code>进行配置</p>
+
+<p>发布的事件名为 your-biz-name:myMessage 这样。
+预留的事件名之前不会加上bizname</p>
+
+<p>在native端</p>
+
+<blockquote>
+<p>android</p>
+</blockquote>
+<pre class="highlight java"><code><span class="n">IntentFilter</span> <span class="n">intentFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">(</span><span class="s">"your-biz-name:myMessage"</span><span class="o">);</span>
+<span class="n">registerReceiver</span><span class="o">(</span><span class="n">yourBroadCaseReceiver</span><span class="o">,</span> <span class="n">intentFilter</span><span class="o">);</span>
+</code></pre>
+
+<blockquote>
+<p>ios</p>
+</blockquote>
+<pre class="highlight objective_c"><code><span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">]</span> <span class="nf">addObserver</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">yourNotificationHandler</span><span class="p">:)</span> <span class="nf">name</span><span class="p">:</span><span class="s">@"your-biz-name:myMessage"</span> <span class="nf">object</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">yourNotificationHandler</span><span class="p">:(</span><span class="n">NSNotification</span><span class="o">*</span><span class="p">)</span><span class="nv">notification</span><span class="p">{</span>
+    <span class="n">NSDictionary</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">notification</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+    <span class="c1">// your logic
+</span><span class="p">}</span>
+</code></pre>
+
+<h2 id="native向web发布消息">native向web发布消息</h2>
+
+<blockquote>
+<p>web</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'customEvent'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"订阅成功"</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"事件触发"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<blockquote>
+<p>android</p>
+</blockquote>
+<pre class="highlight java"><code><span class="c1">// jsHost is an instance of ZeusFragment or its subclass</span>
+        <span class="n">JSONObject</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="s">"switchCity"</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">jsonData</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"action"</span><span class="o">,</span> <span class="n">action</span><span class="o">);</span>
+            <span class="n">jsonData</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"cityId"</span><span class="o">,</span> <span class="n">to</span><span class="o">.</span><span class="na">id</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="n">jsHost</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">jsonData</span><span class="o">);</span> 
+</code></pre>
+
+<blockquote>
+<p>ios</p>
+</blockquote>
+<pre class="highlight objective_c"><code><span class="n">NVWebViewController</span><span class="o">+</span><span class="n">Broadcast</span> <span class="n">subscribeActionMapping</span><span class="err">方法添加通知映射，如</span><span class="s">@"loginSuccess"</span><span class="o">:</span><span class="p">@[</span><span class="n">NVAccountSwitched</span><span class="p">]</span><span class="err">；</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">onWebViewBroadcast</span><span class="o">:</span><span class="p">(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="n">notification</span><span class="err">方法实现业务逻辑</span>
+</code></pre>
+
+<h2 id="弱消息">弱消息</h2>
+
+<aside class="success">all version</aside>
+
+<aside class="warning">弱消息可能存在消息丢失等问题，仅用于兼容从efte迁移的项目，不推荐在新项目中使用。建议使用appear事件结合store/retrieve实现类似需求。</aside>
+
+<blockquote>
+<p>使用前，需先指定bizname</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+  <span class="na">bizname</span><span class="p">:</span><span class="s2">"your-biz-name"</span>
+<span class="p">});</span>
+</code></pre>
+
+<h3 id="订阅消息">订阅消息</h3>
+
+<p><code class="prettyprint">DPMer.weakSubscribe</code></p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">weakSubscribe</span><span class="p">({</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'custom-event'</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"订阅成功"</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"事件触发"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h3 id="发布消息">发布消息</h3>
+
+<p><code class="prettyprint">DPMer.weakPublish</code></p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">weakPublish</span><span class="p">({</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'custom-event'</span><span class="p">,</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">'info'</span><span class="p">:</span> <span class="s1">'detail'</span>
+  <span class="p">},</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"发送成功"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h1 id="ui界面">UI界面</h1>
+
+<h2 id="设置标题">设置标题</h2>
+
+<aside class="success">all version</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">setTitle</span><span class="p">({</span>
+  <span class="na">title</span><span class="p">:</span> <span class="s2">"标题"</span><span class="p">,</span>
+  <span class="na">subtitle</span><span class="p">:</span> <span class="s2">"副标题"</span><span class="p">,</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){}</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="notice">3.5.x及之前只支持设置标题，不支持设置副标题。</aside>
+
+<h2 id="下拉刷新">下拉刷新</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="c1">// 设置下拉刷新</span>
+  <span class="nx">DPMer</span><span class="p">.</span><span class="nx">setPullDown</span><span class="p">({</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"设置成功"</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="na">fail</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"设置失败"</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="c1">// ... </span>
+        <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+          <span class="c1">// 停止下拉刷新</span>
+          <span class="nx">DPMer</span><span class="p">.</span><span class="nx">stopPullDown</span><span class="p">({</span>
+            <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"设置成功"</span><span class="p">);</span>
+            <span class="p">},</span>
+            <span class="na">fail</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"设置失败"</span><span class="p">);</span>
+            <span class="p">}</span>
+          <span class="p">});</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="设置导航栏按钮">设置导航栏按钮</h2>
+
+<blockquote>
+<p>version: </p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">setLLButton</span><span class="p">({</span>
+  <span class="na">text</span><span class="p">:</span> <span class="s2">"文字"</span><span class="p">,</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s2">"H5_Search"</span><span class="p">,</span> <span class="c1">// 同时定义icon和text时，将只有icon生效</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"设置成功"</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">"按钮被点击"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>包含一组共4个方法。</p>
+
+<table><thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>setLLButton</td>
+<td>左上角第一个按钮</td>
+</tr>
+<tr>
+<td>setLRButton</td>
+<td>左上角第二个按钮</td>
+</tr>
+<tr>
+<td>setRLButton</td>
+<td>右上角第一个按钮</td>
+</tr>
+<tr>
+<td>setRRButton</td>
+<td>右上角第二个按钮</td>
+</tr>
+</tbody></table>
+
+<p>文字按钮或者图片按钮。
+icon属性定义了本地资源的名称。
+支持的icon类型如下：</p>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>H5_Search</td>
+<td>代表搜索的放大镜按钮</td>
+</tr>
+<tr>
+<td>H5_Back</td>
+<td>代表返回的向左箭头</td>
+</tr>
+<tr>
+<td>H5_Custom_Back</td>
+<td>向左箭头及“返回”文字</td>
+</tr>
+<tr>
+<td>H5_Share</td>
+<td>代表分享的方框及箭头</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+在iOS上，如果定义了RL按钮而没有定义RR按钮，RL按钮将不显示。
+</aside>
+
+<h2 id="提示对话框">提示对话框</h2>
+
+<aside class="success">3.6.0+</aside>
+
+<p>弹出原生的提示对话框（类似于window.alert）。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">alert</span><span class="p">({</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span> <span class="c1">// 标题文字</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s1">'message'</span><span class="p">,</span> <span class="c1">// 内容文字</span>
+    <span class="na">button</span><span class="p">:</span> <span class="s1">'button'</span><span class="p">,</span> <span class="c1">// 按钮文字</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// 用户点击确认</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="确认对话框">确认对话框</h2>
+
+<aside class="success">3.6.0+</aside>
+
+<p>弹出原生的确认对话框（类似于window.confirm），允许用户确认或取消。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">confirm</span><span class="p">({</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span> <span class="c1">// 标题文字</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s1">'message'</span><span class="p">,</span> <span class="c1">// 内容文字</span>
+    <span class="na">okButton</span><span class="p">:</span> <span class="s1">'OK'</span><span class="p">,</span> <span class="c1">// 确认按钮文字</span>
+    <span class="na">cancelButton</span><span class="p">:</span> <span class="s1">'Cancel'</span><span class="p">,</span> <span class="c1">// 取消按钮文字</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 用户点击确认或取消</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{}</span> <span class="c1">// true: 确认 false: 取消</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="输入对话框">输入对话框</h2>
+
+<aside class="success">3.6.0+</aside>
+
+<p>弹出原生的输入对话框（类似于window.prompt），允许用户输入一段文字，确认或取消。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">prompt</span><span class="p">({</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span> <span class="c1">// 标题文字</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s1">'message'</span><span class="p">,</span> <span class="c1">// 内容文字</span>
+    <span class="na">placeholder</span><span class="p">:</span> <span class="s1">'placeholder'</span><span class="p">,</span> <span class="c1">// 输入框默认文字</span>
+    <span class="na">okButton</span><span class="p">:</span> <span class="s1">'btnconfirm'</span><span class="p">,</span> <span class="c1">// 确认按钮文字</span>
+    <span class="na">cancelButton</span><span class="p">:</span> <span class="s1">'btncancel'</span><span class="p">,</span> <span class="c1">// 取消按钮文字</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 用户点击确认或取消</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// true: 确认 false: 取消</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">text</span><span class="p">);</span> <span class="c1">// 用户输入的文字</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="浮层提示-toast">浮层提示(toast)</h2>
+
+<aside class="success">3.6.0+</aside>
+
+<p>弹出一段简短的信息，一定时间后消失。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">toast</span><span class="p">({</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span> <span class="c1">// 文字</span>
+    <span class="na">timeout</span><span class="p">:</span> <span class="mi">2000</span> <span class="c1">// 持续时间</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="notice">
+安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
+</aside>
+
+          <h1 id="efte-js迁移指南">Efte.js迁移指南</h1>
+
+<p>dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte.js的业务，要求在3.6版本期间迁移到dpmerchant。</p>
+
+<h2 id="能够直接迁移的方法">能够直接迁移的方法</h2>
+
+<table><thead>
+<tr>
+<th>efte.js方法</th>
+<th>对应dpmerchant方法</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>action.back</td>
+<td>closeWindow</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>action.dismiss</td>
+<td>closeWindow</td>
+<td>直接替换；页面不能以modal模式打开</td>
+</tr>
+<tr>
+<td>action.open</td>
+<td>无</td>
+<td>后续版本不再支持静态包，此方法不再有效</td>
+</tr>
+<tr>
+<td>action.openUrl</td>
+<td>openScheme</td>
+<td>使用openScheme({url: “dpmer://web”, extra: { url: “http://example.com/some/path” }})使用webview打开对应url</td>
+</tr>
+<tr>
+<td>action.reloadPage</td>
+<td>无</td>
+<td>使用location.reload()代替</td>
+</tr>
+<tr>
+<td>actionRedirect</td>
+<td>无</td>
+<td>使用openScheme代替</td>
+</tr>
+<tr>
+<td>ajax</td>
+<td>无</td>
+<td>使用js发送（需要跨域的场合需添加CORS头部）</td>
+</tr>
+<tr>
+<td>publish</td>
+<td>weakPublish</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>subscribe</td>
+<td>weakSubscribe</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>editPhoto</td>
+<td>editPhoto</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>gaLog</td>
+<td>无</td>
+<td>使用hippo打点代替</td>
+</tr>
+<tr>
+<td>getEnv</td>
+<td>getUA, getUserInfo, getVersion</td>
+<td>视情况替换</td>
+</tr>
+<tr>
+<td>setTitle</td>
+<td>setTitle</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>setTopRightButton</td>
+<td>setRRButton</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>setrightbaritem</td>
+<td>setRRButton</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>shareTo</td>
+<td>share</td>
+<td>直接替换</td>
+</tr>
+<tr>
+<td>showPhoto</td>
+<td>showPhoto</td>
+<td>直接替换</td>
+</tr>
+</tbody></table>
+
+<h2 id="需要修改业务逻辑的方法">需要修改业务逻辑的方法</h2>
+
+<ul>
+<li><p><code class="prettyprint">takePhoto</code> <code class="prettyprint">takePhotoByName</code></p>
+
+<p>判断版本，在3.6.0及以上版本使用<code class="prettyprint">uploadImage</code>代替</p></li>
+<li><p><code class="prettyprint">setTopRightProgress</code></p>
+
+<p>新版本不支持，需改用其他交互方式</p></li>
+</ul>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
