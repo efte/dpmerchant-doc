@@ -1,5 +1,5 @@
 ---
-title: API Reference
+title: dpmerchant - 点评管家jsBridge
 
 language_tabs:
   - javascript
