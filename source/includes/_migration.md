@@ -12,7 +12,7 @@ dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte
 | action.openUrl      | openScheme                     | 使用openScheme({url: “dpmer://web”, extra: { url: “http://example.com/some/path” }})使用webview打开对应url | 
 | action.reloadPage   | 无                              | 使用location.reload()代替                                                                              | 
 | actionRedirect      | 无                              | 使用openScheme代替                                                                                     | 
-| ajax                | ajax                           | 直接替换                                                                                             | 
+| ajax                | 无                           | 使用js发送（需要跨域的场合需添加CORS头部）                                                                                             | 
 | publish             | weakPublish                    | 直接替换                                                                                             | 
 | subscribe           | weakSubscribe                  | 直接替换                                                                                             | 
 | editPhoto           | editPhoto                      | 直接替换                                                                                               | 
