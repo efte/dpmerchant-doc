@@ -75,7 +75,7 @@ dpmerchant默认开启校验，目前的校验规则基于域名，即只有在�
 - result: 回调函数的执行结果，其值为 next（需要多次回调，执行后不销毁方法），error（执行错误），complete（执行成功）
 - errMsg: 业务执行为fail时的错误信息
 
-所有方法调用之前，需要使用DPMer.ready确保native已就绪。
+<aside class="notice">所有方法调用之前，需要使用DPMer.ready确保native已就绪。</aside>
 
 ## 错误处理
 
