@@ -5,8 +5,8 @@ language_tabs:
   - javascript
 
 toc_footers:
-  - <a href='http://code.dianpingoa.com/ed-f2e/dpmerchant'>项目地址</a>
-  - <a href='http://code.dianpingoa.com/ed-f2e/dpmerchant/issues'>Issue</a>
+  - <a href='https://github.com/efte/dpmerchant-doc'>项目地址</a>
+  - <a href='https://github.com/efte/dpmerchant-doc/issues'>Issue</a>
 
 includes:
   - migration
