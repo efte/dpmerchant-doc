@@ -239,11 +239,11 @@ DPMer.retrieve({
 
 <aside class="notice">使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置</aside>
 
-## delete
+## del
 <aside class="success">all version</aside>
 
 ```javascript
-DPMer.delete({
+DPMer.del({
   key: "key",
   success: function(){
     // 删除成功
@@ -722,4 +722,22 @@ DPMer.toast({
 
 <aside class="notice">
 安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
+</aside>
+
+## 扫描二维码
+<aside class="success">3.7.0+</aside>
+<aside class="warning">功能尚未上线</aside>
+
+调用App的扫描二维码功能，并返回结果。
+
+```javascript
+DPMer.scanQRCode({
+    success: function(res) {
+        alert(res.value); // 扫描结果
+    }
+});
+```
+
+<aside class="info">
+用户主动关闭扫描界面时，并不会触发dpmerchant的回调。
 </aside>
