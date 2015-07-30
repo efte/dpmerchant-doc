@@ -330,6 +330,33 @@ DPMer.downloadImage({
 
 下载完成后，图片会出现在用户设备的资源库中。
 
+## 查找打印机
+<aside class="success">3.6.0+</aside>
+
+```javascript
+DPMer.getPrintDevice({({
+  success: function(e) {
+	if (e && e.deviceName) {
+	  alert(e.deviceName);// 未连接打印机返回''
+	}
+  }
+});
+```
+
+## 调用打印机
+<aside class="success">3.6.0+</aside>
+
+```javascript
+DPMer.print({({
+  content: {},// 和具体业务相关的数据结构
+  action: 'com.dianping.dpmerchant.action.push.DISHPRINT', // 广播名称
+  success: function(e) {
+	// 发送打印广播成功
+  }
+});
+```
+调用native发送广播，具体的打印方法由业务方实现。
+
 ## 关闭webview
 <aside class="success">3.6.0+</aside>
 
