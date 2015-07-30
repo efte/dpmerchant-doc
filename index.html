@@ -274,10 +274,10 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="notice">使用前需要先使用`DPMer.config({bizname:&ldquo;your-biz-name&rdquo;});`进行配置</aside>
 
-<h2 id="delete">delete</h2>
+<h2 id="del">del</h2>
 
 <aside class="success">all version</aside>
-<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="k">delete</span><span class="p">({</span>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">del</span><span class="p">({</span>
   <span class="na">key</span><span class="p">:</span> <span class="s2">"key"</span><span class="p">,</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
     <span class="c1">// 删除成功</span>
@@ -781,6 +781,24 @@ icon属性定义了本地资源的名称。
 
 <aside class="notice">
 安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
+</aside>
+
+<h2 id="扫描二维码">扫描二维码</h2>
+
+<aside class="success">3.7.0+</aside>
+
+<aside class="warning">功能尚未上线</aside>
+
+<p>调用App的扫描二维码功能，并返回结果。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">scanQRCode</span><span class="p">({</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// 扫描结果</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="info">
+用户主动关闭扫描界面时，并不会触发dpmerchant的回调。
 </aside>
 
           <h1 id="efte-js迁移指南">Efte.js迁移指南</h1>
