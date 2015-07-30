@@ -359,6 +359,32 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <p>下载完成后，图片会出现在用户设备的资源库中。</p>
 
+<h2 id="查找打印机">查找打印机</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getPrintDevice</span><span class="p">({({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">deviceName</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">deviceName</span><span class="p">);</span><span class="c1">// 未连接打印机返回''</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="调用打印机">调用打印机</h2>
+
+<aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">print</span><span class="p">({({</span>
+  <span class="na">content</span><span class="p">:</span> <span class="p">{},</span><span class="c1">// 和具体业务相关的数据结构</span>
+  <span class="na">action</span><span class="p">:</span> <span class="s1">'com.dianping.dpmerchant.action.push.DISHPRINT'</span><span class="p">,</span> <span class="c1">// 广播名称</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 发送打印广播成功</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>调用native发送广播，具体的打印方法由业务方实现。</p>
+
 <h2 id="关闭webview">关闭webview</h2>
 
 <aside class="success">3.6.0+</aside>
