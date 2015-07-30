@@ -347,7 +347,7 @@ DPMer.getPrintDevice({({
 <aside class="success">3.6.0+</aside>
 
 ```javascript
-DPMer.print({({
+DPMer.print({
   content: {},// 和具体业务相关的数据结构
   action: 'com.dianping.dpmerchant.action.push.DISHPRINT', // 广播名称
   success: function(e) {
