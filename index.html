@@ -495,7 +495,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <h2 id="向native发布消息">向native发布消息</h2>
 
-<aside class="success">all version</aside>
+<aside class="success">3.6.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
   <span class="na">bizname</span><span class="p">:</span><span class="s2">"your-biz-name"</span>
 <span class="p">});</span>
@@ -519,64 +519,6 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <p>发布的事件名为 your-biz-name:myMessage 这样。
 预留的事件名之前不会加上bizname</p>
-
-<p>在native端</p>
-
-<blockquote>
-<p>android</p>
-</blockquote>
-<pre class="highlight java"><code><span class="n">IntentFilter</span> <span class="n">intentFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntentFilter</span><span class="o">(</span><span class="s">"your-biz-name:myMessage"</span><span class="o">);</span>
-<span class="n">registerReceiver</span><span class="o">(</span><span class="n">yourBroadCaseReceiver</span><span class="o">,</span> <span class="n">intentFilter</span><span class="o">);</span>
-</code></pre>
-
-<blockquote>
-<p>ios</p>
-</blockquote>
-<pre class="highlight objective_c"><code><span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="nf">defaultCenter</span><span class="p">]</span> <span class="nf">addObserver</span><span class="p">:</span><span class="n">self</span> <span class="nf">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nf">yourNotificationHandler</span><span class="p">:)</span> <span class="nf">name</span><span class="p">:</span><span class="s">@"your-biz-name:myMessage"</span> <span class="nf">object</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
-
-<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">yourNotificationHandler</span><span class="p">:(</span><span class="n">NSNotification</span><span class="o">*</span><span class="p">)</span><span class="nv">notification</span><span class="p">{</span>
-    <span class="n">NSDictionary</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">notification</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
-    <span class="c1">// your logic
-</span><span class="p">}</span>
-</code></pre>
-
-<h2 id="native向web发布消息">native向web发布消息</h2>
-
-<blockquote>
-<p>web</p>
-</blockquote>
-<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span>
-  <span class="na">action</span><span class="p">:</span> <span class="s1">'customEvent'</span><span class="p">,</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">"订阅成功"</span><span class="p">);</span>
-  <span class="p">},</span>
-  <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">"事件触发"</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre>
-
-<blockquote>
-<p>android</p>
-</blockquote>
-<pre class="highlight java"><code><span class="c1">// jsHost is an instance of ZeusFragment or its subclass</span>
-        <span class="n">JSONObject</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
-        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="s">"switchCity"</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">jsonData</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"action"</span><span class="o">,</span> <span class="n">action</span><span class="o">);</span>
-            <span class="n">jsonData</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"cityId"</span><span class="o">,</span> <span class="n">to</span><span class="o">.</span><span class="na">id</span><span class="o">());</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-        <span class="o">}</span>
-        <span class="n">jsHost</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">jsonData</span><span class="o">);</span> 
-</code></pre>
-
-<blockquote>
-<p>ios</p>
-</blockquote>
-<pre class="highlight objective_c"><code><span class="n">NVWebViewController</span><span class="o">+</span><span class="n">Broadcast</span> <span class="n">subscribeActionMapping</span><span class="err">方法添加通知映射，如</span><span class="s">@"loginSuccess"</span><span class="o">:</span><span class="p">@[</span><span class="n">NVAccountSwitched</span><span class="p">]</span><span class="err">；</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">onWebViewBroadcast</span><span class="o">:</span><span class="p">(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="n">notification</span><span class="err">方法实现业务逻辑</span>
-</code></pre>
 
 <h2 id="弱消息">弱消息</h2>
 
@@ -809,11 +751,31 @@ icon属性定义了本地资源的名称。
 安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
 </aside>
 
+<h2 id="操作列表">操作列表</h2>
+
+<aside class="success">3.7.0+</aside>
+
+<aside class="warning">该功能尚未上线</aside>
+
+<p>弹出一个有多个按钮的列表。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">actionSheet</span><span class="p">({</span>
+    <span class="na">selections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'分享图片'</span><span class="err">，</span><span class="s1">'删除图片'</span><span class="p">],</span> <span class="c1">// 按钮文案列表</span>
+    <span class="na">cancelButton</span><span class="p">:</span> <span class="s1">'取消'</span><span class="p">,</span> <span class="c1">// 取消按钮的文案，默认为“取消”</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">);</span> <span class="c1">// 用户点选的按钮</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="notice">
+用户点击“取消”按钮或点击空白处返回，不会触发回调。
+</aside>
+
 <h2 id="扫描二维码">扫描二维码</h2>
 
 <aside class="success">3.7.0+</aside>
 
-<aside class="warning">功能尚未上线</aside>
+<aside class="warning">该功能尚未上线</aside>
 
 <p>调用App的扫描二维码功能，并返回结果。</p>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">scanQRCode</span><span class="p">({</span>
