@@ -33,3 +33,23 @@ dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte
 * `setTopRightProgress`
 
     新版本不支持，需改用其他交互方式
+
+## 关于点评管家web scheme
+
+点评管家`3.6.0`版本新增了scheme：`dpmer://newweb`。这个scheme主要用于从efte到dpmerchant的过渡阶段。过渡阶段的版本内，`dpmer://newweb`对应支持dpmerchant的webview，`dpmer://web`对应支持efte的webview。
+
+对于前端项目，业务在js中使用`openScheme`或`jumpToScheme`时，`dpmer://web`的scheme会被自动替换为`dpmer://newweb`。
+
+如果需要强制打开efte webview，则需要添加一个额外参数。如代码所示。
+
+```javascript
+DPMer.openScheme({
+	url: 'dpmer://web',
+	extra: { url: 'http://m.dianping.com' },
+	useEfteWeb: true // 传true表示使用efte webview打开
+});
+```
+
+<aside class="warning">
+未来移除efte后的点评管家中，`dpmer://web`将指向新的webview。因此为了将来版本能够无缝升级，业务不应在代码里直接使用`dpmer://newweb`的scheme。
+</aside>

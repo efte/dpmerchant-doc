@@ -682,10 +682,6 @@ DPMer.actionSheet({
 });
 ```
 
-<aside class="notice">
-用户点击“取消”按钮或点击空白处返回，不会触发回调。
-</aside>
-
 ## 扫描二维码
 <aside class="success">3.7.0+</aside>
 <aside class="warning">该功能尚未上线</aside>
