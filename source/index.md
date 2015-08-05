@@ -435,7 +435,7 @@ DPMer.unsubscribe({
 ```
 
 ## 向native发布消息
-<aside class="success">all version</aside>
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.config({
@@ -461,64 +461,6 @@ DPMer.publish({
 
 发布的事件名为 your-biz-name:myMessage 这样。
 预留的事件名之前不会加上bizname
-
-在native端
-
-> android
-
-```java
-IntentFilter intentFilter = new IntentFilter("your-biz-name:myMessage");
-registerReceiver(yourBroadCaseReceiver, intentFilter);
-```
-
-> ios
-
-```objective_c
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yourNotificationHandler:) name:@"your-biz-name:myMessage" object:nil];
-
--(void)yourNotificationHandler:(NSNotification*)notification{
-    NSDictionary* data = notification.data;
-    // your logic
-}
-```
-
-## native向web发布消息
-
-> web
-
-```javascript
-DPMer.subscribe({
-  action: 'customEvent',
-  success: function(e){
-    alert("订阅成功");
-  },
-  handle: function(e){
-    console.log(e.data);
-    alert("事件触发");
-  }
-});
-```
-
-> android
-
-```java    
-// jsHost is an instance of ZeusFragment or its subclass
-        JSONObject jsonData = new JSONObject();
-        String action = "switchCity";
-        try {
-            jsonData.put("action", action);
-            jsonData.put("cityId", to.id());
-        } catch (JSONException e) {
-            Log.e(e.toString());
-        }
-        jsHost.publish(jsonData); 
-```
-
-> ios
-
-```objective_c
-NVWebViewController+Broadcast subscribeActionMapping方法添加通知映射，如@"loginSuccess":@[NVAccountSwitched]；(void)onWebViewBroadcast:(NSNotification *)notification方法实现业务逻辑
-```
 
 ## 弱消息
 <aside class="success">all version</aside>
@@ -724,9 +666,29 @@ DPMer.toast({
 安卓设备上toast显示持续时间受到系统限制，只有2秒和3.5秒两个选项。调用本接口时，如果`timeout`大于2000，则按3.5秒展示；否则按2秒展示。
 </aside>
 
+## 操作列表
+<aside class="success">3.7.0+</aside>
+<aside class="warning">该功能尚未上线</aside>
+
+弹出一个有多个按钮的列表。
+
+```javascript
+DPMer.actionSheet({
+    selections: ['分享图片'，'删除图片'], // 按钮文案列表
+    cancelButton: '取消', // 取消按钮的文案，默认为“取消”
+    success: function(res) {
+        alert(res.selectedIndex); // 用户点选的按钮
+    }
+});
+```
+
+<aside class="notice">
+用户点击“取消”按钮或点击空白处返回，不会触发回调。
+</aside>
+
 ## 扫描二维码
 <aside class="success">3.7.0+</aside>
-<aside class="warning">功能尚未上线</aside>
+<aside class="warning">该功能尚未上线</aside>
 
 调用App的扫描二维码功能，并返回结果。
 
