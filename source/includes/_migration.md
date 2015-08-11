@@ -28,11 +28,20 @@ dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte
 
 * `takePhoto` `takePhotoByName`
 
-    判断版本，在3.6.0及以上版本使用`uploadImage`代替
+    判断版本，在3.6.0及以上版本使用`uploadImage`代替，如果要兼容efte和dpmerchant，需要写两套业务代码。
+    
+```javascript
+if (ua.appVersion === 'efte_1.0') {
+	var Efte = DPMer._efte;	
+	// Efte.takePhoto({});
+} else {
+	// use DPMer.uploadImage({});
+}
+```
   
 * `setTopRightProgress`
 
-    新版本不支持，需改用其他交互方式
+    新版本不支持，需改用其他交互方式。
 
 ## 关于点评管家web scheme
 
