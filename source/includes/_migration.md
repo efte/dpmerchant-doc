@@ -24,6 +24,7 @@ dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte
 | setrightbaritem     | setRRButton                    | 直接替换                                                                                            | 
 | shareTo             | share                          | 直接替换                                                                                               | 
 | showPhoto           | showPhoto                      | 直接替换                                                                                               |
+| stopMusic           | stopMusic                      | 直接替换
 
 
 ## 需要修改业务逻辑的方法
@@ -49,7 +50,7 @@ if (ua.appVersion === 'efte_1.0') {
 
 	新版本不支持。
 
-* `checkDeal` `setBadge` `stopMusic`
+* `checkDeal` `setBadge`
 	
 	需要业务方自己扩展。
 
