@@ -291,16 +291,16 @@ DPMer.ajax({
 
 ```javascript
 DPMer.uploadImage({
-  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url
+  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url, 参考http://m.dper.com/mobile/api/apiDetail?id=1782
   compressFactor: 1024, // 上传图片压缩到多少尺寸以下，单位为K
   maxNum: 1, // 选择图片数
   extra: { // 业务参数
-    referid: 101,
-    shopaccountid: 102,
-    title: 'pic',
-    height: 90,
-    width: 120,
-    visitmode: 'x'
+    referid: 101,// 必填
+    shopaccountid: 102,// 必填
+    title: 'pic',// 必填
+    height: 90,// 可选
+    width: 120,// 可选
+    visitmode: 'x'// 可选，图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）
   }
   handle: function(result){
     alert(e.totalNum); // 图片上传张数
@@ -554,7 +554,7 @@ DPMer.ready(function(){
 
 
 ## 设置导航栏按钮
-> version: 
+<aside class="success">3.6.0+</aside>
 
 ```javascript
 DPMer.setLLButton({
