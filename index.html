@@ -767,10 +767,6 @@ icon属性定义了本地资源的名称。
 <span class="p">});</span>
 </code></pre>
 
-<aside class="notice">
-用户点击“取消”按钮或点击空白处返回，不会触发回调。
-</aside>
-
 <h2 id="扫描二维码">扫描二维码</h2>
 
 <aside class="success">3.7.0+</aside>
@@ -894,11 +890,39 @@ icon属性定义了本地资源的名称。
 <ul>
 <li><p><code class="prettyprint">takePhoto</code> <code class="prettyprint">takePhotoByName</code></p>
 
-<p>判断版本，在3.6.0及以上版本使用<code class="prettyprint">uploadImage</code>代替</p></li>
+<p>判断版本，在3.6.0及以上版本使用<code class="prettyprint">uploadImage</code>代替，如果要兼容efte和dpmerchant，需要写两套业务代码。</p></li>
+</ul>
+<pre class="highlight javascript"><code><span class="k">if</span> <span class="p">(</span><span class="nx">ua</span><span class="p">.</span><span class="nx">appVersion</span> <span class="o">===</span> <span class="s1">'efte_1.0'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">Efte</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">_efte</span><span class="p">;</span> 
+    <span class="c1">// Efte.takePhoto({});</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// use DPMer.uploadImage({});</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
 <li><p><code class="prettyprint">setTopRightProgress</code></p>
 
-<p>新版本不支持，需改用其他交互方式</p></li>
+<p>新版本不支持，需改用其他交互方式。</p></li>
 </ul>
+
+<h2 id="关于点评管家web-scheme">关于点评管家web scheme</h2>
+
+<p>点评管家<code class="prettyprint">3.6.0</code>版本新增了scheme：<code class="prettyprint">dpmer://newweb</code>。这个scheme主要用于从efte到dpmerchant的过渡阶段。过渡阶段的版本内，<code class="prettyprint">dpmer://newweb</code>对应支持dpmerchant的webview，<code class="prettyprint">dpmer://web</code>对应支持efte的webview。</p>
+
+<p>对于前端项目，业务在js中使用<code class="prettyprint">openScheme</code>或<code class="prettyprint">jumpToScheme</code>时，<code class="prettyprint">dpmer://web</code>的scheme会被自动替换为<code class="prettyprint">dpmer://newweb</code>。</p>
+
+<p>如果需要强制打开efte webview，则需要添加一个额外参数。如代码所示。</p>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">openScheme</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="s1">'dpmer://web'</span><span class="p">,</span>
+    <span class="na">extra</span><span class="p">:</span> <span class="p">{</span> <span class="na">url</span><span class="p">:</span> <span class="s1">'http://m.dianping.com'</span> <span class="p">},</span>
+    <span class="na">useEfteWeb</span><span class="p">:</span> <span class="kc">true</span> <span class="c1">// 传true表示使用efte webview打开</span>
+<span class="p">});</span>
+</code></pre>
+
+<aside class="warning">
+未来移除efte后的点评管家中，`dpmer://web`将指向新的webview。因此为了将来版本能够无缝升级，业务不应在代码里直接使用`dpmer://newweb`的scheme。
+</aside>
 
       </div>
       <div class="dark-box">
