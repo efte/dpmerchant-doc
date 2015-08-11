@@ -321,16 +321,16 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="success">3.6.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">uploadImage</span><span class="p">({</span>
-  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url</span>
+  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url, 参考http://m.dper.com/mobile/api/apiDetail?id=1782</span>
   <span class="na">compressFactor</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1">// 上传图片压缩到多少尺寸以下，单位为K</span>
   <span class="na">maxNum</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// 选择图片数</span>
   <span class="na">extra</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 业务参数</span>
-    <span class="na">referid</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
-    <span class="na">shopaccountid</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'pic'</span><span class="p">,</span>
-    <span class="na">height</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
-    <span class="na">width</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
-    <span class="na">visitmode</span><span class="p">:</span> <span class="s1">'x'</span>
+    <span class="na">referid</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span><span class="c1">// 必填</span>
+    <span class="na">shopaccountid</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span><span class="c1">// 必填</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'pic'</span><span class="p">,</span><span class="c1">// 必填</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span><span class="c1">// 可选</span>
+    <span class="na">width</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span><span class="c1">// 可选</span>
+    <span class="na">visitmode</span><span class="p">:</span> <span class="s1">'x'</span><span class="c1">// 可选，图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）</span>
   <span class="p">}</span>
   <span class="nl">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">totalNum</span><span class="p">);</span> <span class="c1">// 图片上传张数</span>
@@ -610,9 +610,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <h2 id="设置导航栏按钮">设置导航栏按钮</h2>
 
-<blockquote>
-<p>version: </p>
-</blockquote>
+<aside class="success">3.6.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">setLLButton</span><span class="p">({</span>
   <span class="na">text</span><span class="p">:</span> <span class="s2">"文字"</span><span class="p">,</span>
   <span class="na">icon</span><span class="p">:</span> <span class="s2">"H5_Search"</span><span class="p">,</span> <span class="c1">// 同时定义icon和text时，将只有icon生效</span>
@@ -829,6 +827,11 @@ icon属性定义了本地资源的名称。
 <td>使用openScheme代替</td>
 </tr>
 <tr>
+<td>openURLAction(iOS)</td>
+<td>openScheme</td>
+<td>使用openScheme({url: “dpmer://web”, extra: { url: “http://example.com/some/path” }})使用webview打开对应url</td>
+</tr>
+<tr>
 <td>ajax</td>
 <td>无</td>
 <td>使用js发送（需要跨域的场合需添加CORS头部）</td>
@@ -849,7 +852,7 @@ icon属性定义了本地资源的名称。
 <td>直接替换</td>
 </tr>
 <tr>
-<td>gaLog</td>
+<td>gaLog/gaXXX</td>
 <td>无</td>
 <td>使用hippo打点代替</td>
 </tr>
@@ -890,13 +893,13 @@ icon属性定义了本地资源的名称。
 <ul>
 <li><p><code class="prettyprint">takePhoto</code> <code class="prettyprint">takePhotoByName</code></p>
 
-<p>判断版本，在3.6.0及以上版本使用<code class="prettyprint">uploadImage</code>代替，如果要兼容efte和dpmerchant，需要写两套业务代码。</p></li>
+<p>判断版本，在3.6.0及以上版本使用<code class="prettyprint">uploadImage</code>代替，如果要兼容efte.js和dpmerchant，需要写两套业务代码。</p></li>
 </ul>
 <pre class="highlight javascript"><code><span class="k">if</span> <span class="p">(</span><span class="nx">ua</span><span class="p">.</span><span class="nx">appVersion</span> <span class="o">===</span> <span class="s1">'efte_1.0'</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">Efte</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">_efte</span><span class="p">;</span> 
-    <span class="c1">// Efte.takePhoto({});</span>
+    <span class="kd">var</span> <span class="nx">Efte</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">_efte</span><span class="p">;</span> <span class="c1">// 只在efte webview下才会出现的efte的一个副本</span>
+    <span class="c1">// use Efte.takePhoto</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="c1">// use DPMer.uploadImage({});</span>
+    <span class="c1">// use DPMer.uploadImage</span>
 <span class="p">}</span>
 </code></pre>
 
@@ -904,6 +907,12 @@ icon属性定义了本地资源的名称。
 <li><p><code class="prettyprint">setTopRightProgress</code></p>
 
 <p>新版本不支持，需改用其他交互方式。</p></li>
+<li><p><code class="prettyprint">disableBounce</code></p>
+
+<p>新版本不支持。</p></li>
+<li><p><code class="prettyprint">checkDeal</code> <code class="prettyprint">setBadge</code> <code class="prettyprint">stopMusic</code></p>
+
+<p>需要业务方自己扩展。</p></li>
 </ul>
 
 <h2 id="关于点评管家web-scheme">关于点评管家web scheme</h2>
