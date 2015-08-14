@@ -114,7 +114,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.1.0-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.1-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -674,6 +674,7 @@ DPMer.toast({
 
 ```javascript
 DPMer.actionSheet({
+    title: '',// for android, 可以为空
     selections: ['分享图片'，'删除图片'], // 按钮文案列表
     cancelButton: '取消', // 取消按钮的文案，默认为“取消”
     success: function(res) {
