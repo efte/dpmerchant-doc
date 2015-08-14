@@ -675,7 +675,7 @@ DPMer.toast({
 ```javascript
 DPMer.actionSheet({
     title: '',// for android, 可以为空
-    selections: ['分享图片'，'删除图片'], // 按钮文案列表
+    selections: ['分享图片', '删除图片'], // 按钮文案列表
     cancelButton: '取消', // 取消按钮的文案，默认为“取消”
     success: function(res) {
         alert(res.selectedIndex); // 用户点选的按钮
