@@ -722,8 +722,8 @@ icon属性定义了本地资源的名称。
     <span class="na">title</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span> <span class="c1">// 标题文字</span>
     <span class="na">message</span><span class="p">:</span> <span class="s1">'message'</span><span class="p">,</span> <span class="c1">// 内容文字</span>
     <span class="na">placeholder</span><span class="p">:</span> <span class="s1">'placeholder'</span><span class="p">,</span> <span class="c1">// 输入框默认文字</span>
-    <span class="na">okButton</span><span class="p">:</span> <span class="s1">'btnconfirm'</span><span class="p">,</span> <span class="c1">// 确认按钮文字</span>
-    <span class="na">cancelButton</span><span class="p">:</span> <span class="s1">'btncancel'</span><span class="p">,</span> <span class="c1">// 取消按钮文字</span>
+    <span class="na">okButton</span><span class="p">:</span> <span class="s1">'btnconfirm'</span><span class="p">,</span> <span class="c1">// 确认按钮文字，可选，默认值『确定』</span>
+    <span class="na">cancelButton</span><span class="p">:</span> <span class="s1">'btncancel'</span><span class="p">,</span> <span class="c1">// 取消按钮文字，可选，默认值『取消』</span>
     <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// 用户点击确认或取消</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{</span>
@@ -789,6 +789,8 @@ icon属性定义了本地资源的名称。
 <p>dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte.js的业务，要求在3.6版本期间迁移到dpmerchant。</p>
 
 <h2 id="能够直接迁移的方法">能够直接迁移的方法</h2>
+
+<aside class="warning">为兼容老efte，请务必调用DPMer.ready</aside>
 
 <table><thead>
 <tr>
