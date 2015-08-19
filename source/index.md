@@ -638,8 +638,8 @@ DPMer.prompt({
     title: 'title', // 标题文字
     message: 'message', // 内容文字
     placeholder: 'placeholder', // 输入框默认文字
-    okButton: 'btnconfirm', // 确认按钮文字
-    cancelButton: 'btncancel', // 取消按钮文字
+    okButton: 'btnconfirm', // 确认按钮文字，可选，默认值『确定』
+    cancelButton: 'btncancel', // 取消按钮文字，可选，默认值『取消』
     success: function(e) {
         // 用户点击确认或取消
         if (e.ret) {

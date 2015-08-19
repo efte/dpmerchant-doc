@@ -4,6 +4,8 @@ dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte
 
 ## 能够直接迁移的方法
 
+<aside class="warning">为兼容老efte，请务必调用DPMer.ready</aside>
+
 | efte.js方法          | 对应dpmerchant方法              | 说明                                                                                                 | 
 |---------------------|--------------------------------|-------------------------------| 
 | action.back         | closeWindow                    | 直接替换                                                                                               | 
