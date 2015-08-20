@@ -178,12 +178,13 @@ DPMer.getNetworkType({
 
 ## openScheme
 <aside class="success">all version</aside>
+<aside class="warning">如果urlScheme是web，extra.url中如有特殊字符需要编码</aside>
 
 ```javascript
 DPMer.openScheme({
   url: "dpmer://web",
   extra: {
-    "url": "http://e.dianping.com"
+    "url": "http://e.dianping.com/test?shopName=" + encodeURIComponent('大众点评')
   }
 });
 ```
@@ -193,6 +194,7 @@ DPMer.openScheme({
 
 ## jumpToScheme
 <aside class="success">3.6.0+</aside>
+<aside class="warning">如果urlScheme是web，extra.url中如有特殊字符需要编码</aside>
 
 ```javascript
 DPMer.jumpToScheme({
@@ -674,7 +676,7 @@ DPMer.toast({
 
 ```javascript
 DPMer.actionSheet({
-    title: '',// for android, 可以为空
+    title: '',
     selections: ['分享图片', '删除图片'], // 按钮文案列表
     cancelButton: '取消', // 取消按钮的文案，默认为“取消”
     success: function(res) {
