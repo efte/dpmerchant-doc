@@ -219,10 +219,12 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="openscheme">openScheme</h2>
 
 <aside class="success">all version</aside>
+
+<aside class="warning">如果urlScheme是web，extra.url中如有特殊字符需要编码</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">openScheme</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s2">"dpmer://web"</span><span class="p">,</span>
   <span class="na">extra</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://e.dianping.com"</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://e.dianping.com/test?shopName="</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">'大众点评'</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
@@ -232,6 +234,8 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="jumptoscheme">jumpToScheme</h2>
 
 <aside class="success">3.6.0+</aside>
+
+<aside class="warning">如果urlScheme是web，extra.url中如有特殊字符需要编码</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">jumpToScheme</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s2">"dpmer://web"</span><span class="p">,</span>
   <span class="na">extra</span><span class="p">:</span> <span class="p">{</span>
@@ -757,7 +761,7 @@ icon属性定义了本地资源的名称。
 
 <p>弹出一个有多个按钮的列表。</p>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">actionSheet</span><span class="p">({</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span><span class="c1">// for android, 可以为空</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
     <span class="na">selections</span><span class="p">:</span> <span class="p">[</span><span class="s1">'分享图片'</span><span class="p">,</span> <span class="s1">'删除图片'</span><span class="p">],</span> <span class="c1">// 按钮文案列表</span>
     <span class="na">cancelButton</span><span class="p">:</span> <span class="s1">'取消'</span><span class="p">,</span> <span class="c1">// 取消按钮的文案，默认为“取消”</span>
     <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
