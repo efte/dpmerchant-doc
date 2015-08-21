@@ -113,8 +113,8 @@ DPMer.getQuery(); // 返回JSONObject
 扫描以下二维码进入测试页面:
 
 <p style="text-align:center">
-<img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.1-beta/demo/demo.html" />
+<img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.4.2-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.2-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
