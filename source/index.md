@@ -157,8 +157,8 @@ DPMer.getUA({
 
 值 | 描述
 --- | ----
-ua.platform | 平台 dpmerchant|other
-ua.appName | app名称 目前只支持点评管家app，值为dpmerchant
+ua.platform | 平台 dpapp
+ua.appName | app名称 点评管家内值为dpmerchant，否则为web
 ua.appVersion | app版本号，如：7.0.1
 ua.osName | 设备系统名 android|iphone
 ua.osVersion | 设备系统版本号 4.4.2|8.0.2
