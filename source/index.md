@@ -314,7 +314,7 @@ DPMer.uploadImage({
 
 请求参数，以<a href="http://m.dper.com/mobile/api/apiDetail?id=1782" target="_blank;">API文档</a>为准
 
-extra字段 | 描述
+extra | 描述
 --- | ----
 type | 图片是否绑定商家、审核
 title | 图片标题（默认“pic”）
@@ -326,7 +326,7 @@ visitmode|图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:�
 
 返回值，以<a href="http://m.dper.com/mobile/model/detailModel?id=4187" target="_blank">API文档</a>为准：
 
-result字段 | 描述
+result | 描述
 --- | ----
 totalNum | 图片上传张数
 progess | start 开始上传, uploading 上传中, end 上传结束
