@@ -114,7 +114,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.1-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.2-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -157,8 +157,8 @@ DPMer.getUA({
 
 值 | 描述
 --- | ----
-ua.platform | 平台 dpmerchant|other
-ua.appName | app名称 目前只支持点评管家app，值为dpmerchant
+ua.platform | 平台 dpapp
+ua.appName | app名称 点评管家内值为dpmerchant，否则为web
 ua.appVersion | app版本号，如：7.0.1
 ua.osName | 设备系统名 android, iphone
 ua.osVersion | 设备系统版本号 4.4.2, 8.0.2
