@@ -330,7 +330,7 @@ result字段 | 描述
 --- | ----
 totalNum | 图片上传张数
 progess | start 开始上传, uploading 上传中, end 上传结束
-image |  示例：{"image":"http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg","picId":97198820,"url":"/pc/2b6f5b12eaeeaccdbfca52e6c2dde112"}
+image |  示例：{"image": "http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg", "picId": 97198820, "url": "/pc/2b6f5b12eaeeaccdbfca52e6c2dde112"}
 
 
 ## 下载图片
