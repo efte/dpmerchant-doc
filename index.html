@@ -196,11 +196,11 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 </tr>
 <tr>
 <td>ua.osName</td>
-<td>设备系统名 android</td>
+<td>设备系统名 android, iphone</td>
 </tr>
 <tr>
 <td>ua.osVersion</td>
-<td>设备系统版本号 4.4.2</td>
+<td>设备系统版本号 4.4.2, 8.0.2</td>
 </tr>
 </tbody></table>
 
@@ -239,7 +239,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">jumpToScheme</span><span class="p">({</span>
   <span class="na">url</span><span class="p">:</span> <span class="s2">"dpmer://web"</span><span class="p">,</span>
   <span class="na">extra</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://e.dianping.com"</span>
+    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://e.dianping.com/test?shopName="</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">'大众点评'</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
@@ -324,8 +324,68 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="上传图片">上传图片</h2>
 
 <aside class="success">3.6.0+</aside>
+
+<p>请求参数，以<a href="http://m.dper.com/mobile/api/apiDetail?id=1782" target="_blank;">API文档</a>为准</p>
+
+<table><thead>
+<tr>
+<th>extra字段</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>图片是否绑定商家、审核</td>
+</tr>
+<tr>
+<td>title</td>
+<td>图片标题（默认“pic”）</td>
+</tr>
+<tr>
+<td>referid</td>
+<td>图片相关业务ID(例如：商户图片，传shopId)</td>
+</tr>
+<tr>
+<td>shopaccountid</td>
+<td>商家账号</td>
+</tr>
+<tr>
+<td>height</td>
+<td>求图片长度（需要上传图片路径时必填，宽和高都有定值，请咨询@王涛）</td>
+</tr>
+<tr>
+<td>width</td>
+<td>请求图片宽度（需要上传图片路径时必填）</td>
+</tr>
+<tr>
+<td>visitmode</td>
+<td>图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）（需要上传图片路径时必填）</td>
+</tr>
+</tbody></table>
+
+<p>返回值，以<a href="http://m.dper.com/mobile/model/detailModel?id=4187" target="_blank">API文档</a>为准：</p>
+
+<table><thead>
+<tr>
+<th>result字段</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>totalNum</td>
+<td>图片上传张数</td>
+</tr>
+<tr>
+<td>progess</td>
+<td>start 开始上传, uploading 上传中, end 上传结束</td>
+</tr>
+<tr>
+<td>image</td>
+<td>示例：{&ldquo;image&rdquo;:&ldquo;http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg&rdquo;,&ldquo;picId&rdquo;:97198820,&ldquo;url&rdquo;:&ldquo;/pc/2b6f5b12eaeeaccdbfca52e6c2dde112&rdquo;}</td>
+</tr>
+</tbody></table>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">uploadImage</span><span class="p">({</span>
-  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url, 参考http://m.dper.com/mobile/api/apiDetail?id=1782</span>
+  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url</span>
   <span class="na">compressFactor</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1">// 上传图片压缩到多少尺寸以下，单位为K</span>
   <span class="na">maxNum</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// 选择图片数</span>
   <span class="na">extra</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 业务参数</span>
