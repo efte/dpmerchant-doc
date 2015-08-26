@@ -291,9 +291,29 @@ DPMer.ajax({
 ## 上传图片
 <aside class="success">3.6.0+</aside>
 
+请求参数，以<a href="http://m.dper.com/mobile/api/apiDetail?id=1782" target="_blank;">API文档</a>为准
+
+extra字段 | 描述
+--- | ----
+type | 图片是否绑定商家、审核
+title | 图片标题（默认“pic”）
+referid | 图片相关业务ID(例如：商户图片，传shopId)
+shopaccountid | 商家账号
+height | 求图片长度（需要上传图片路径时必填，宽和高都有定值，请咨询@王涛）
+width  | 请求图片宽度（需要上传图片路径时必填）
+visitmode|图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）（需要上传图片路径时必填）
+
+返回值，以<a href="http://m.dper.com/mobile/model/detailModel?id=4187" target="_blank">API文档</a>为准：
+
+result字段 | 描述
+--- | ----
+totalNum | 图片上传张数
+progess | start 开始上传, uploading 上传中, end 上传结束
+image |	 示例：{"image":"http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg","picId":97198820,"url":"/pc/2b6f5b12eaeeaccdbfca52e6c2dde112"}
+
 ```javascript
 DPMer.uploadImage({
-  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url, 参考http://m.dper.com/mobile/api/apiDetail?id=1782
+  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url
   compressFactor: 1024, // 上传图片压缩到多少尺寸以下，单位为K
   maxNum: 1, // 选择图片数
   extra: { // 业务参数
