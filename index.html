@@ -324,6 +324,25 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="上传图片">上传图片</h2>
 
 <aside class="success">3.6.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">uploadImage</span><span class="p">({</span>
+  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url</span>
+  <span class="na">compressFactor</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1">// 上传图片压缩到多少尺寸以下，单位为K</span>
+  <span class="na">maxNum</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// 选择图片数</span>
+  <span class="na">extra</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 业务参数</span>
+    <span class="na">referid</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span><span class="c1">// 必填</span>
+    <span class="na">shopaccountid</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span><span class="c1">// 必填</span>
+    <span class="na">title</span><span class="p">:</span> <span class="s1">'pic'</span><span class="p">,</span><span class="c1">// 必填</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span><span class="c1">// 可选</span>
+    <span class="na">width</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span><span class="c1">// 可选</span>
+    <span class="na">visitmode</span><span class="p">:</span> <span class="s1">'x'</span><span class="c1">// 可选，图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）</span>
+  <span class="p">}</span>
+  <span class="nl">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">totalNum</span><span class="p">);</span> <span class="c1">// 图片上传张数</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">image</span><span class="p">);</span> <span class="c1">// 服务器返回的数据结果</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">progess</span><span class="p">);</span> <span class="c1">// start 开始上传, uploading 上传中, end 上传结束</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
 
 <p>请求参数，以<a href="http://m.dper.com/mobile/api/apiDetail?id=1782" target="_blank;">API文档</a>为准</p>
 
@@ -384,25 +403,6 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <td>示例：{&ldquo;image&rdquo;:&ldquo;http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg&rdquo;,&ldquo;picId&rdquo;:97198820,&ldquo;url&rdquo;:&ldquo;/pc/2b6f5b12eaeeaccdbfca52e6c2dde112&rdquo;}</td>
 </tr>
 </tbody></table>
-<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">uploadImage</span><span class="p">({</span>
-  <span class="na">uploadUrl</span><span class="p">:</span> <span class="s1">'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp'</span><span class="p">,</span> <span class="c1">// 上传图片调用的mapi接口的url</span>
-  <span class="na">compressFactor</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1">// 上传图片压缩到多少尺寸以下，单位为K</span>
-  <span class="na">maxNum</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// 选择图片数</span>
-  <span class="na">extra</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 业务参数</span>
-    <span class="na">referid</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span><span class="c1">// 必填</span>
-    <span class="na">shopaccountid</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span><span class="c1">// 必填</span>
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'pic'</span><span class="p">,</span><span class="c1">// 必填</span>
-    <span class="na">height</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span><span class="c1">// 可选</span>
-    <span class="na">width</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span><span class="c1">// 可选</span>
-    <span class="na">visitmode</span><span class="p">:</span> <span class="s1">'x'</span><span class="c1">// 可选，图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）</span>
-  <span class="p">}</span>
-  <span class="nl">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">totalNum</span><span class="p">);</span> <span class="c1">// 图片上传张数</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">image</span><span class="p">);</span> <span class="c1">// 服务器返回的数据结果</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">progess</span><span class="p">);</span> <span class="c1">// start 开始上传, uploading 上传中, end 上传结束</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre>
 
 <h2 id="下载图片">下载图片</h2>
 
