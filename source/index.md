@@ -160,8 +160,8 @@ DPMer.getUA({
 ua.platform | 平台 dpmerchant|other
 ua.appName | app名称 目前只支持点评管家app，值为dpmerchant
 ua.appVersion | app版本号，如：7.0.1
-ua.osName | 设备系统名 android|iphone
-ua.osVersion | 设备系统版本号 4.4.2|8.0.2
+ua.osName | 设备系统名 android, iphone
+ua.osVersion | 设备系统版本号 4.4.2, 8.0.2
 
 ## 获取网络状态
 <aside class="success">3.6.0+</aside>
@@ -200,7 +200,7 @@ DPMer.openScheme({
 DPMer.jumpToScheme({
   url: "dpmer://web",
   extra: {
-    "url": "http://e.dianping.com"
+    "url": "http://e.dianping.com/test?shopName=" + encodeURIComponent('大众点评')
   }
 });
 ```
