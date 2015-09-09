@@ -186,7 +186,6 @@ DPMer.getDeviceInfo({
 ```
 ## 获取wifi信息
 <aside class="success">3.8.0+</aside>
-<aside class="warning">iOS only</aside>
 
 ```javascript
 DPMer.getWiFiInfo({
