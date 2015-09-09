@@ -114,7 +114,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.2-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.1-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -170,6 +170,17 @@ ua.osVersion | 设备系统版本号 4.4.2, 8.0.2
 DPMer.getNetworkType({
   success: function(e){
     alert(e.networkType); // 2g, 3g, 4g, wifi, none
+  }
+});
+```
+## 获取设备信息
+
+<aside class="success">3.8.0+</aside>
+
+```javascript
+DPMer.getDeviceInfo({
+  success: function(e){
+    //
   }
 });
 ```
@@ -386,7 +397,16 @@ DPMer.print({
 ```javascript
 DPMer.closeWindow();
 ```
+## 切换webview的tab
+<aside class="success">3.8.0+</aside>
 
+```javascript
+DPMer.selectTab({
+	index: 0,
+	success: function(){},
+	fail: function(){}
+});
+```
 ## 分享
 <aside class="success">all version</aside>
 
