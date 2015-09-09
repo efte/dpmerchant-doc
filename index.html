@@ -224,6 +224,19 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <span class="p">});</span>
 </code></pre>
 
+<h2 id="获取wifi信息">获取wifi信息</h2>
+
+<aside class="success">3.8.0+</aside>
+
+<aside class="warning">iOS only</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getWiFiInfo</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">mac</span><span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">ssid</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
 <h1 id="功能模块">功能模块</h1>
 
 <h2 id="openscheme">openScheme</h2>
