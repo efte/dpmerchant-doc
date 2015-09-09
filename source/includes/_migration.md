@@ -54,7 +54,7 @@ if (ua.appVersion === 'efte_1.0') {
 
 * `checkDeal` `setBadge`
 	
-	需要业务方自己扩展。
+	直接替换为DPMer.checkDeal()和DPMer.setBadge()。
 
 ## 关于点评管家web scheme
 
