@@ -184,6 +184,18 @@ DPMer.getDeviceInfo({
   }
 });
 ```
+## 获取wifi信息
+<aside class="success">3.8.0+</aside>
+<aside class="warning">iOS only</aside>
+
+```javascript
+DPMer.getWiFiInfo({
+  success: function(e){
+    alert(e.mac);
+    alert(e.ssid);
+  }
+});
+```
 
 # 功能模块
 
