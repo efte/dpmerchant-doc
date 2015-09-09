@@ -139,7 +139,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.4.2-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.1-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -210,6 +210,16 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getNetworkType</span><span class="p">({</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">networkType</span><span class="p">);</span> <span class="c1">// 2g, 3g, 4g, wifi, none</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h2 id="获取设备信息">获取设备信息</h2>
+
+<aside class="success">3.8.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getDeviceInfo</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="c1">//</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
@@ -453,6 +463,16 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="success">3.6.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">closeWindow</span><span class="p">();</span>
+</code></pre>
+
+<h2 id="切换webview的tab">切换webview的tab</h2>
+
+<aside class="success">3.8.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">selectTab</span><span class="p">({</span>
+    <span class="na">index</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){},</span>
+    <span class="na">fail</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){}</span>
+<span class="p">});</span>
 </code></pre>
 
 <h2 id="分享">分享</h2>
