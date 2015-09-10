@@ -127,6 +127,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 ## 获取用户信息
 <aside class="success">all version</aside>
+<aside class="warning">userType v3.8.0+</aside>
 
 ```javascript
 DPMer.getUserInfo({
@@ -136,6 +137,7 @@ DPMer.getUserInfo({
     alert(i.edper); // edper
     alert(i.shopId); // 商户id
     alert(i.shopAccountId); // shopAccountId
+    alert(i.userType); // 
   }
 });
 ```
