@@ -151,6 +151,8 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="获取用户信息">获取用户信息</h2>
 
 <aside class="success">all version</aside>
+
+<aside class="warning">userType v3.8.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUserInfo</span><span class="p">({</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">dpid</span><span class="p">);</span> <span class="c1">// 用户的dpid</span>
@@ -158,6 +160,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">edper</span><span class="p">);</span> <span class="c1">// edper</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">shopId</span><span class="p">);</span> <span class="c1">// 商户id</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">shopAccountId</span><span class="p">);</span> <span class="c1">// shopAccountId</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">userType</span><span class="p">);</span> <span class="c1">// </span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
