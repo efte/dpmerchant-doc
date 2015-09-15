@@ -36,7 +36,7 @@ dpmerchant和点评管家内置了对现有功能的支持，对于原使用efte
     判断版本，在3.6.0及以上版本使用`uploadImage`代替，如果要兼容efte.js和dpmerchant，需要写两套业务代码。
     
 ```javascript
-if (ua.appVersion === 'efte_1.0') {
+if (ua.appVersion === 'efte-1.0') {
 	var Efte = DPMer._efte;	// 只在efte webview下才会出现的efte的一个副本
 	// use Efte.takePhoto
 } else {
