@@ -1001,7 +1001,7 @@ icon属性定义了本地资源的名称。
 
 <p>判断版本，在3.6.0及以上版本使用<code class="prettyprint">uploadImage</code>代替，如果要兼容efte.js和dpmerchant，需要写两套业务代码。</p></li>
 </ul>
-<pre class="highlight javascript"><code><span class="k">if</span> <span class="p">(</span><span class="nx">ua</span><span class="p">.</span><span class="nx">appVersion</span> <span class="o">===</span> <span class="s1">'efte_1.0'</span><span class="p">)</span> <span class="p">{</span>
+<pre class="highlight javascript"><code><span class="k">if</span> <span class="p">(</span><span class="nx">ua</span><span class="p">.</span><span class="nx">appVersion</span> <span class="o">===</span> <span class="s1">'efte-1.0'</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">Efte</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">_efte</span><span class="p">;</span> <span class="c1">// 只在efte webview下才会出现的efte的一个副本</span>
     <span class="c1">// use Efte.takePhoto</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
