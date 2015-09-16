@@ -114,7 +114,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.1-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.2-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -138,6 +138,19 @@ DPMer.getUserInfo({
     alert(i.shopId); // 商户id
     alert(i.shopAccountId); // shopAccountId
     alert(i.userType); // 
+  }
+});
+```
+# 获取城市id
+
+## 获取用户信息
+<aside class="success">v3.8.0+</aside>
+
+```javascript
+DPMer.getCityId({
+  success: function(i){
+    alert(i.cityId); // cityId
+    alert(i.locCityId); // 定位cityId
   }
 });
 ```
