@@ -139,7 +139,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.1-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.2-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -161,6 +161,19 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">shopId</span><span class="p">);</span> <span class="c1">// 商户id</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">shopAccountId</span><span class="p">);</span> <span class="c1">// shopAccountId</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">userType</span><span class="p">);</span> <span class="c1">// </span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<h1 id="获取城市id">获取城市id</h1>
+
+<h2 id="获取用户信息">获取用户信息</h2>
+
+<aside class="success">v3.8.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getCityId</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">cityId</span><span class="p">);</span> <span class="c1">// cityId</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">locCityId</span><span class="p">);</span> <span class="c1">// 定位cityId</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
