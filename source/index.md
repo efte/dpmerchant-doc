@@ -157,6 +157,7 @@ DPMer.getCityId({
 
 ## 获取客户端环境信息
 <aside class="success">all version</aside>
+<aside class="warning">v3.6.0-v3.8.0请在ready中获取ua</aside>
 
 ```javascript
 // 同步调用
@@ -628,7 +629,7 @@ DPMer.ready(function(){
 ```javascript
 DPMer.setLLButton({
   text: "文字",
-  icon: "H5_Search", // 同时定义icon和text时，将只有icon生效
+  icon: "h5_search_dpgj", // 同时定义icon和text时，将只有icon生效
   success: function(){
     alert("设置成功");
   },
@@ -654,14 +655,31 @@ icon属性定义了本地资源的名称。
 
 名称 | 说明
 -----+------
-H5_Search | 代表搜索的放大镜按钮
-H5_Back | 代表返回的向左箭头
-H5_Custom_Back | 向左箭头及“返回”文字
-H5_Share | 代表分享的方框及箭头
+h5_add_dpgj | +号
+h5_search_dpgj | 代表搜索的放大镜按钮
+h5_back_dpgj | 代表返回的向左箭头
+h5_custom_back_dpgj | 向左箭头及“返回”文字
+h5_share_dpgj | 代表分享的方框及箭头
 
 <aside class="notice">
 在iOS上，如果定义了RL按钮而没有定义RR按钮，RL按钮将不显示。
 </aside>
+
+## 通过base64设置按钮
+<aside class="success">3.9.0+</aside>
+
+```javascript(需要在ready中调用)
+DPMer.setLLButton({
+  type: 'base64',
+  icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...=='
+  success: function(){
+    alert("设置成功");
+  },
+  handle: function(){
+    alert("按钮被点击");
+  }
+});
+```
 
 ## 提示对话框
 <aside class="success">3.6.0+</aside>
