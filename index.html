@@ -181,6 +181,8 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="获取客户端环境信息">获取客户端环境信息</h2>
 
 <aside class="success">all version</aside>
+
+<aside class="warning">v3.6.0-v3.8.0请在ready中获取ua</aside>
 <pre class="highlight javascript"><code><span class="c1">// 同步调用</span>
 <span class="kd">var</span> <span class="nx">ua</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUA</span><span class="p">();</span>
 <span class="nx">alert</span><span class="p">(</span><span class="nx">ua</span><span class="p">);</span>
@@ -724,7 +726,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <aside class="success">3.6.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">setLLButton</span><span class="p">({</span>
   <span class="na">text</span><span class="p">:</span> <span class="s2">"文字"</span><span class="p">,</span>
-  <span class="na">icon</span><span class="p">:</span> <span class="s2">"H5_Search"</span><span class="p">,</span> <span class="c1">// 同时定义icon和text时，将只有icon生效</span>
+  <span class="na">icon</span><span class="p">:</span> <span class="s2">"h5_search_dpgj"</span><span class="p">,</span> <span class="c1">// 同时定义icon和text时，将只有icon生效</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
     <span class="nx">alert</span><span class="p">(</span><span class="s2">"设置成功"</span><span class="p">);</span>
   <span class="p">},</span>
@@ -771,19 +773,23 @@ icon属性定义了本地资源的名称。
 </tr>
 </thead><tbody>
 <tr>
-<td>H5_Search</td>
+<td>h5_add_dpgj</td>
+<td>+号</td>
+</tr>
+<tr>
+<td>h5_search_dpgj</td>
 <td>代表搜索的放大镜按钮</td>
 </tr>
 <tr>
-<td>H5_Back</td>
+<td>h5_back_dpgj</td>
 <td>代表返回的向左箭头</td>
 </tr>
 <tr>
-<td>H5_Custom_Back</td>
+<td>h5_custom_back_dpgj</td>
 <td>向左箭头及“返回”文字</td>
 </tr>
 <tr>
-<td>H5_Share</td>
+<td>h5_share_dpgj</td>
 <td>代表分享的方框及箭头</td>
 </tr>
 </tbody></table>
@@ -791,6 +797,21 @@ icon属性定义了本地资源的名称。
 <aside class="notice">
 在iOS上，如果定义了RL按钮而没有定义RR按钮，RL按钮将不显示。
 </aside>
+
+<h2 id="通过base64设置按钮">通过base64设置按钮</h2>
+
+<aside class="success">3.9.0+</aside>
+<pre class="highlight plaintext"><code>DPMer.setLLButton({
+  type: 'base64',
+  icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...=='
+  success: function(){
+    alert("设置成功");
+  },
+  handle: function(){
+    alert("按钮被点击");
+  }
+});
+</code></pre>
 
 <h2 id="提示对话框">提示对话框</h2>
 
