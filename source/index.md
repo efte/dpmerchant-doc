@@ -518,13 +518,6 @@ DPMer.unsubscribe({
 
 ## 向native发布消息
 <aside class="success">3.6.0+</aside>
-<aside class="warning">3.9.0+支持全局消息，全局消息不拼接bizname.</aside>
-
-名称 | 说明
----- | ----
-com.dianping.merchant.ACCOUNT_STATUS_CHANGE| 3.9.0+
-
-
 
 ```javascript
 DPMer.config({
@@ -549,7 +542,13 @@ DPMer.publish({
 为了避免命名冲突，使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置
 
 发布的事件名为 your-biz-name:myMessage 这样。
-预留的事件名之前不会加上bizname
+3.9.0+开始有预留的事件名，预留事件名之前不会加上bizname。
+
+名称 | 说明
+---- | ----
+com.dianping.merchant.ACCOUNT_STATUS_CHANGE| 3.9.0+
+
+
 
 ## 弱消息
 <aside class="success">all version</aside>
