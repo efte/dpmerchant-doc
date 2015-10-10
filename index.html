@@ -619,20 +619,6 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="向native发布消息">向native发布消息</h2>
 
 <aside class="success">3.6.0+</aside>
-
-<aside class="warning">3.9.0+支持全局消息，全局消息不拼接bizname.</aside>
-
-<table><thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>com.dianping.merchant.ACCOUNT_STATUS_CHANGE</td>
-<td>3.9.0+</td>
-</tr>
-</tbody></table>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
   <span class="na">bizname</span><span class="p">:</span><span class="s2">"your-biz-name"</span>
 <span class="p">});</span>
@@ -655,7 +641,19 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <p>为了避免命名冲突，使用前需要先使用<code class="prettyprint">DPMer.config({bizname:&quot;your-biz-name&quot;});</code>进行配置</p>
 
 <p>发布的事件名为 your-biz-name:myMessage 这样。
-预留的事件名之前不会加上bizname</p>
+3.9.0+开始有预留的事件名，预留事件名之前不会加上bizname。</p>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>com.dianping.merchant.ACCOUNT_STATUS_CHANGE</td>
+<td>3.9.0+</td>
+</tr>
+</tbody></table>
 
 <h2 id="弱消息">弱消息</h2>
 
