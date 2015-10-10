@@ -619,6 +619,20 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="向native发布消息">向native发布消息</h2>
 
 <aside class="success">3.6.0+</aside>
+
+<aside class="warning">3.9.0+支持全局消息，全局消息不拼接bizname.</aside>
+
+<table><thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>com.dianping.merchant.ACCOUNT_STATUS_CHANGE</td>
+<td>3.9.0+</td>
+</tr>
+</tbody></table>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
   <span class="na">bizname</span><span class="p">:</span><span class="s2">"your-biz-name"</span>
 <span class="p">});</span>
