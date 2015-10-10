@@ -518,6 +518,13 @@ DPMer.unsubscribe({
 
 ## 向native发布消息
 <aside class="success">3.6.0+</aside>
+<aside class="warning">3.9.0+支持全局消息，全局消息不拼接bizname.</aside>
+
+名称 | 说明
+---- | ----
+com.dianping.merchant.ACCOUNT_STATUS_CHANGE| 3.9.0+
+
+
 
 ```javascript
 DPMer.config({
