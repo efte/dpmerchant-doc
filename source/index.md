@@ -131,7 +131,7 @@ DPMer.getQuery(); // 返回JSONObject
 ```javascript
 DPMer.getVersion({
   success: function(i){
-
+    alert(i.version);
   }
 });
 ```
