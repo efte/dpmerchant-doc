@@ -125,6 +125,18 @@ DPMer.getQuery(); // 返回JSONObject
 
 # 获取信息
 
+## 获取版本号
+<aside class="success">all version</aside>
+
+```javascript
+DPMer.getVersion({
+  success: function(i){
+
+  }
+});
+```
+
+
 ## 获取用户信息
 <aside class="success">all version</aside>
 <aside class="warning">userType v3.8.0+</aside>
@@ -141,9 +153,8 @@ DPMer.getUserInfo({
   }
 });
 ```
-# 获取城市id
 
-## 获取用户信息
+## 获取城市id
 <aside class="success">v3.8.0+</aside>
 
 ```javascript
