@@ -127,6 +127,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 ## 获取版本号
 <aside class="success">all version</aside>
+<aside class="warning">efte打开的页面会尝试从cookie拿，但是因为domain的限制，不一定成功。</aside>
 
 ```javascript
 DPMer.getVersion({
