@@ -382,6 +382,19 @@ totalNum | 图片上传张数
 progess | start 开始上传, uploading 上传中, end 上传结束
 image |  示例：{"image": "http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg", "picId": 97198820, "url": "/pc/2b6f5b12eaeeaccdbfca52e6c2dde112"}
 
+## 取消上传
+<aside class="success">3.9.0+</aside>
+
+```javascript
+DPMer.cancelUploadImage({
+  success: function(){
+  	// 取消上传图片
+  },
+  error: function() {}    
+});
+```
+适用于上传未完成时用户尝试退出当前页面。
+
 
 ## 下载图片
 <aside class="success">3.6.0+</aside>
