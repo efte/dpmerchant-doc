@@ -453,6 +453,19 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 </tr>
 </tbody></table>
 
+<h2 id="取消上传">取消上传</h2>
+
+<aside class="success">3.9.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">cancelUploadImage</span><span class="p">({</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// 取消上传图片</span>
+  <span class="p">},</span>
+  <span class="na">error</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>    
+<span class="p">});</span>
+</code></pre>
+
+<p>适用于上传未完成时用户尝试退出当前页面。</p>
+
 <h2 id="下载图片">下载图片</h2>
 
 <aside class="success">3.6.0+</aside>
