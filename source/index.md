@@ -224,6 +224,21 @@ DPMer.getWiFiInfo({
 });
 ```
 
+## 判断主APP是否已安装
+<aside class="success">3.9.0+</aside>
+
+```javascript
+DPMer.isInstalledApp({
+	success: function() {
+		// 已安装
+	},
+	fail: function() {
+		// 未安装
+	}
+});
+```
+
+
 # 功能模块
 
 ## openScheme
