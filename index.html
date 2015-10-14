@@ -263,6 +263,19 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <span class="p">});</span>
 </code></pre>
 
+<h2 id="判断主app是否已安装">判断主APP是否已安装</h2>
+
+<aside class="success">3.9.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">isInstalledApp</span><span class="p">({</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// 已安装</span>
+    <span class="p">},</span>
+    <span class="na">fail</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// 未安装</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
 <h1 id="功能模块">功能模块</h1>
 
 <h2 id="openscheme">openScheme</h2>
