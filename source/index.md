@@ -713,7 +713,7 @@ h5_share_dpgj | 代表分享的方框及箭头
 
 ## 通过base64设置按钮
 <aside class="success">3.9.0+</aside>
-<aside class="warning">不包含'data:image/png;base64,'</aside>
+<aside class="warning">不包含'data:image/png;base64,'，推荐图片大小22*22.</aside>
 
 ```javascript(需要在ready中调用)
 DPMer.setLLButton({
