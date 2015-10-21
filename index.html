@@ -849,9 +849,11 @@ icon属性定义了本地资源的名称。
 <h2 id="通过base64设置按钮">通过base64设置按钮</h2>
 
 <aside class="success">3.9.0+</aside>
+
+<aside class="warning">不包含&lsquo;data:image/png;base64,'，推荐图片大小22*22.</aside>
 <pre class="highlight plaintext"><code>DPMer.setLLButton({
   type: 'base64',
-  icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...=='
+  icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...==',
   success: function(){
     alert("设置成功");
   },
