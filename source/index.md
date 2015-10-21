@@ -713,11 +713,12 @@ h5_share_dpgj | 代表分享的方框及箭头
 
 ## 通过base64设置按钮
 <aside class="success">3.9.0+</aside>
+<aside class="warning">不包含'data:image/png;base64,'</aside>
 
 ```javascript(需要在ready中调用)
 DPMer.setLLButton({
   type: 'base64',
-  icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...=='
+  icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...==',
   success: function(){
     alert("设置成功");
   },
