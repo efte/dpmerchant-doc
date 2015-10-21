@@ -266,12 +266,11 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="判断主app是否已安装">判断主APP是否已安装</h2>
 
 <aside class="success">3.9.0+</aside>
-<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">isInstalledApp</span><span class="p">({</span>
-    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// 已安装</span>
-    <span class="p">},</span>
-    <span class="na">fail</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// 未安装</span>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">isInstalledApp</span><span class="p">({</span><span class="c1">// 目前只支持判断主APP</span>
+  <span class="na">scheme</span><span class="p">:</span> <span class="s1">'dianping'</span><span class="p">,</span>
+  <span class="na">package</span><span class="p">:</span> <span class="s1">'com.dianping.v1'</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">installed</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
@@ -848,7 +847,7 @@ icon属性定义了本地资源的名称。
 
 <h2 id="通过base64设置按钮">通过base64设置按钮</h2>
 
-<aside class="success">3.9.0+</aside>
+<aside class="success">4.0.0+</aside>
 
 <aside class="warning">不包含&lsquo;data:image/png;base64,'，推荐图片大小22*22.</aside>
 <pre class="highlight plaintext"><code>DPMer.setLLButton({
