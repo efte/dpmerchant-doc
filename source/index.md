@@ -228,12 +228,11 @@ DPMer.getWiFiInfo({
 <aside class="success">3.9.0+</aside>
 
 ```javascript
-DPMer.isInstalledApp({
-	success: function() {
-		// 已安装
-	},
-	fail: function() {
-		// 未安装
+DPMer.isInstalledApp({// 目前只支持判断主APP
+  scheme: 'dianping',
+  package: 'com.dianping.v1',
+	success: function(e) {
+		alert(e.installed);
 	}
 });
 ```
@@ -712,7 +711,7 @@ h5_share_dpgj | 代表分享的方框及箭头
 </aside>
 
 ## 通过base64设置按钮
-<aside class="success">3.9.0+</aside>
+<aside class="success">4.0.0+</aside>
 <aside class="warning">不包含'data:image/png;base64,'，推荐图片大小22*22.</aside>
 
 ```javascript(需要在ready中调用)
