@@ -322,7 +322,7 @@ DPMer.del({
 <aside class="notice">使用前需要先使用`DPMer.config({bizname:"your-biz-name"});`进行配置</aside>
 
 
-## Ajax请求
+<!--## Ajax请求
 <aside class="success">all version</aside>
 
 ```javascript
@@ -350,7 +350,7 @@ DPMer.ajax({
 调用方需要与后端确认这些key，作为参数传入，使得方法可以映射出可读的字段。
 
 在web中，业务方需要自行通过后端开放CORS等方式解决跨域问题。
-
+-->
 
 ## 上传图片
 <aside class="success">3.6.0+</aside>
