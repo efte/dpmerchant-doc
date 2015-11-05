@@ -354,33 +354,35 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="notice">使用前需要先使用`DPMer.config({bizname:&ldquo;your-biz-name&rdquo;});`进行配置</aside>
 
-<h2 id="ajax请求">Ajax请求</h2>
-
+<!--## Ajax请求
 <aside class="success">all version</aside>
-<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s2">"http://m.api.dianping.com/indextabicon.bin?cityid=1&amp;version=7.0.1"</span><span class="p">,</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s2">"get"</span><span class="p">,</span>
-  <span class="na">keys</span><span class="p">:[</span>
-    <span class="s2">"List"</span><span class="p">,</span>
-    <span class="s2">"HotName"</span><span class="p">,</span>
-    <span class="s2">"Id"</span><span class="p">,</span>
-    <span class="s2">"Icon"</span><span class="p">,</span>
-    <span class="s2">"Title"</span><span class="p">,</span>
-    <span class="s2">"Url"</span><span class="p">,</span>
-    <span class="s2">"Type"</span>
-  <span class="p">],</span> <span class="c1">// 字段映射表</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">Deal</span><span class="p">.</span><span class="nx">ID</span><span class="p">);</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">Deal</span><span class="p">.</span><span class="nx">Price</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre>
 
-<p>对于DPObject的请求，由于后端返回的内容中，字段的key使用算法进行了非对称加密。</p>
+&ldquo;`javascript
+DPMer.ajax({
+  url: &quot;http://m.api.dianping.com/indextabicon.bin?cityid=1&version=7.0.1&rdquo;,
+  method: &ldquo;get&rdquo;,
+  keys:[
+    &ldquo;List&rdquo;,
+    &ldquo;HotName&rdquo;,
+    &ldquo;Id&rdquo;,
+    &ldquo;Icon&rdquo;,
+    &ldquo;Title&rdquo;,
+    &ldquo;Url&rdquo;,
+    &ldquo;Type&rdquo;
+  ], // 字段映射表
+  success: function(data){
+    alert(data.Deal.ID);
+    alert(data.Deal.Price);
+  }
+});
+&ldquo;`
 
-<p>调用方需要与后端确认这些key，作为参数传入，使得方法可以映射出可读的字段。</p>
+对于DPObject的请求，由于后端返回的内容中，字段的key使用算法进行了非对称加密。
 
-<p>在web中，业务方需要自行通过后端开放CORS等方式解决跨域问题。</p>
+调用方需要与后端确认这些key，作为参数传入，使得方法可以映射出可读的字段。
+
+在web中，业务方需要自行通过后端开放CORS等方式解决跨域问题。
+&ndash;>
 
 <h2 id="上传图片">上传图片</h2>
 
@@ -461,7 +463,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 </tr>
 <tr>
 <td>image</td>
-<td>示例：{&ldquo;image&rdquo;: &ldquo;http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg&rdquo;, &ldquo;picId&rdquo;: 97198820, &ldquo;url&rdquo;: &ldquo;/pc/2b6f5b12eaeeaccdbfca52e6c2dde112&rdquo;}</td>
+<td>示例：{&quot;image&rdquo;: &ldquo;http://i2.s2.51ping.com/pc/2b6f5b12eaeeaccdbfca52e6c2dde112(640x1024)/thumb.jpg&rdquo;, &ldquo;picId&rdquo;: 97198820, &ldquo;url&rdquo;: &ldquo;/pc/2b6f5b12eaeeaccdbfca52e6c2dde112&rdquo;}</td>
 </tr>
 </tbody></table>
 
