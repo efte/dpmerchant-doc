@@ -127,7 +127,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 ## 获取版本号
 <aside class="success">all version</aside>
-<aside class="warning">efte打开的页面会尝试从cookie拿，但是因为domain的限制，不一定成功。</aside>
+<aside class="warning">efte版本杂乱，没有文档，3.5.0以下版本用efte打开时此方法不保证100%有效。</aside>
 
 ```javascript
 DPMer.getVersion({
@@ -169,7 +169,7 @@ DPMer.getCityId({
 
 ## 获取客户端环境信息
 <aside class="success">all version</aside>
-<aside class="warning">v3.6.0-v3.8.0请在ready中获取ua</aside>
+<aside class="warning">请在ready中获取ua</aside>
 
 ```javascript
 // 同步调用
