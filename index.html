@@ -152,7 +152,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="success">all version</aside>
 
-<aside class="warning">efte打开的页面会尝试从cookie拿，但是因为domain的限制，不一定成功。</aside>
+<aside class="warning">efte版本杂乱，没有文档，3.5.0以下版本用efte打开时此方法不保证100%有效。</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getVersion</span><span class="p">({</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">version</span><span class="p">);</span>
@@ -192,7 +192,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="success">all version</aside>
 
-<aside class="warning">v3.6.0-v3.8.0请在ready中获取ua</aside>
+<aside class="warning">请在ready中获取ua</aside>
 <pre class="highlight javascript"><code><span class="c1">// 同步调用</span>
 <span class="kd">var</span> <span class="nx">ua</span> <span class="o">=</span> <span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUA</span><span class="p">();</span>
 <span class="nx">alert</span><span class="p">(</span><span class="nx">ua</span><span class="p">);</span>
