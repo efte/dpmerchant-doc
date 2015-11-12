@@ -330,12 +330,12 @@ DPMer.del({
 
 ```javascript
 DPMer.uploadImage({
-  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url
+  uploadUrl: 'http://api.e.51ping.com/merchant/common/uploadcommonpic.mp', // 上传图片调用的mapi接口的url，注意检查当前环境
   compressFactor: 1024, // 上传图片压缩到多少尺寸以下，单位为K
   maxNum: 1, // 选择图片数
   extra: { // 业务参数
-    referid: 101,// 必填
-    shopaccountid: 102,// 必填
+    referid: 0,// 必填，如果不和业务绑定填写0
+    shopaccountid: 102,// 必填，只是审核用，不会出现在商户相册里
     title: 'pic',// 必填
     height: 90,// 可选
     width: 120,// 可选
@@ -349,7 +349,7 @@ DPMer.uploadImage({
 });
 ```
 
-请求参数，以<a href="http://m.dper.com/mobile/api/apiDetail?id=1782" target="_blank;">API文档</a>为准
+请求参数，以<a href="http://m.dper.com/api/detailApi.html?type=detail&apiId=1782" target="_blank;">API文档</a>为准
 
 extra | 描述
 --- | ----
@@ -361,7 +361,7 @@ height | 求图片长度（需要上传图片路径时必填，宽和高都有�
 width  | 请求图片宽度（需要上传图片路径时必填）
 visitmode|图片裁剪模式（”o“:填充，”c“:中心裁剪，”x“:等比缩放）（需要上传图片路径时必填）
 
-返回值，以<a href="http://m.dper.com/mobile/model/detailModel?id=4187" target="_blank">API文档</a>为准：
+返回值，以<a href="http://m.dper.com/model/detailModel.html?type=detail&modelId=4187" target="_blank">API文档</a>为准：
 
 result | 描述
 --- | ----
