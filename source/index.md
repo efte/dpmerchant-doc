@@ -114,7 +114,7 @@ DPMer.getQuery(); // 返回JSONObject
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.5-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.7-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -253,8 +253,12 @@ DPMer.openScheme({
 });
 ```
 
-打开scheme
+打开scheme。
 
+点评管家v4.0起，所有nativeTab scheme都支持额外参数传递，规则如下：
+ 
+url scheme: dpmer://reputation?index=1&e=encode(a=b&c=d)
+对应http请求：http://xxxxx/xxx?extra=encode(a=b&c=d)
 
 ## jumpToScheme
 <aside class="success">3.6.0+</aside>
@@ -680,10 +684,10 @@ h5_share_dpgj | 代表分享的方框及箭头
 </aside>
 
 ## 通过base64设置按钮
-<aside class="success">4.0.0+</aside>
+<aside class="success">4.0+</aside>
 <aside class="warning">不包含'data:image/png;base64,'，推荐图片大小22*22.</aside>
 
-```javascript(需要在ready中调用)
+```javascript
 DPMer.setLLButton({
   type: 'base64',
   icon: '/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...==',
@@ -695,6 +699,15 @@ DPMer.setLLButton({
   }
 });
 ```
+## 禁用iOS左滑后退
+<aside class="success">4.0+</aside>
+```javascript
+DPMer.enableSlideBack({
+  canSlideBack: true,
+  success: function(){}
+});
+```
+
 
 ## 提示对话框
 <aside class="success">3.6.0+</aside>
