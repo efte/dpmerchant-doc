@@ -798,7 +798,6 @@ DPMer.toast({
 
 ## 操作列表
 <aside class="success">3.7.0+</aside>
-<aside class="warning">该功能尚未上线</aside>
 
 弹出一个有多个按钮的列表。
 
@@ -815,7 +814,6 @@ DPMer.actionSheet({
 
 ## 扫描二维码
 <aside class="success">3.7.0+</aside>
-<aside class="warning">该功能尚未上线</aside>
 
 调用App的扫描二维码功能，并返回结果。
 
