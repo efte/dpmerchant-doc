@@ -139,7 +139,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <p style="text-align:center">
 <img src="http://j1.s1.51ping.com/mod/f2e-tool-pages/0.1.0-beta/src/img/dpmerchant-demo.qr_dpmer_new.png" alt="二维码"><br>
-<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.7-beta/demo/demo.html" />
+<input id="test-url" readonly style="width:300px;padding:5px" value="http://j1.s1.51ping.com/mod/dpmerchant/0.5.8-beta/demo/demo.html" />
 </p>
 
 <p id="test-canvas" style="text-align:center"></p>
@@ -700,6 +700,31 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 </code></pre>
 
 <h1 id="ui界面">UI界面</h1>
+
+<h2 id="隐藏-显示-titlebar">隐藏(显示)titlebar</h2>
+
+<aside class="success">4.0.0+</aside>
+<pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">setNavigationBarHidden</span><span class="p">({</span>
+  <span class="na">flag</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">handle</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'success'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+
+<table><thead>
+<tr>
+<th>参数</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>flag</td>
+<td>1</td>
+<td>隐藏APP的titlebar,全屏显示webview,0则显示titlebar</td>
+</tr>
+</tbody></table>
 
 <h2 id="设置标题">设置标题</h2>
 
