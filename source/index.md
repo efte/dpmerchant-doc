@@ -670,6 +670,13 @@ DPMer.setLLButton({
     alert("按钮被点击");
   }
 });
+
+DPMer.setLLButton({
+  disable: true,// 删除按钮
+  success: function(){
+    alert("设置成功");
+  }
+});
 ```
 
 包含一组共4个方法。
