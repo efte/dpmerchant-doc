@@ -140,7 +140,7 @@ DPMer.getVersion({
 
 ## 获取用户信息
 <aside class="success">all version</aside>
-<aside class="warning">userType v3.8.0+</aside>
+<aside class="warning">@param userType v3.8.0+</aside>
 
 ```javascript
 DPMer.getUserInfo({
@@ -231,8 +231,8 @@ DPMer.getWiFiInfo({
 DPMer.isInstalledApp({// 目前只支持判断主APP
   scheme: 'dianping',
   package: 'com.dianping.v1',
-	success: function(e) {
-		alert(e.installed);
+  success: function(e) {
+    alert(e.installed);
 	}
 });
 ```
@@ -448,6 +448,7 @@ DPMer.selectTab({
 ```
 ## 分享
 <aside class="success">all version</aside>
+<aside class="warning">如果需要在微信用设置分享内容，请使用unified-share组件。</aside>
 
 ```javascript
 DPMer.share({
@@ -670,9 +671,11 @@ DPMer.setLLButton({
     alert("按钮被点击");
   }
 });
-
+```
+> 删除按钮
+```javascript
 DPMer.setLLButton({
-  disable: true,// 删除按钮
+  disable: true,
   success: function(){
     alert("设置成功");
   }
@@ -707,7 +710,7 @@ h5_share_dpgj | 代表分享的方框及箭头
 
 ## 通过base64设置按钮
 <aside class="success">4.0+</aside>
-<aside class="warning">不包含'data:image/png;base64,'，推荐图片大小22*22.</aside>
+<aside class="warning">不包含'data:image/png;base64,'，base64的图片大小控制为 尺寸44X44(icon本身22X22)的三倍图，即132X132的画布，66X66的icon大小.</aside>
 
 ```javascript
 DPMer.setLLButton({
@@ -725,7 +728,7 @@ DPMer.setLLButton({
 <aside class="success">4.0+</aside>
 ```javascript
 DPMer.enableSlideBack({
-  canSlideBack: true,
+  canSlideBack: true,// false禁止左滑后退
   success: function(){}
 });
 ```
