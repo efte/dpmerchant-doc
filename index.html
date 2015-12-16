@@ -164,7 +164,7 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 
 <aside class="success">all version</aside>
 
-<aside class="warning">userType v3.8.0+</aside>
+<aside class="warning">@param userType v3.8.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">getUserInfo</span><span class="p">({</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">){</span>
     <span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">dpid</span><span class="p">);</span> <span class="c1">// 用户的dpid</span>
@@ -269,8 +269,8 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">isInstalledApp</span><span class="p">({</span><span class="c1">// 目前只支持判断主APP</span>
   <span class="na">scheme</span><span class="p">:</span> <span class="s1">'dianping'</span><span class="p">,</span>
   <span class="na">package</span><span class="p">:</span> <span class="s1">'com.dianping.v1'</span><span class="p">,</span>
-    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">installed</span><span class="p">);</span>
+  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">installed</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </code></pre>
@@ -519,6 +519,8 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
 <h2 id="分享">分享</h2>
 
 <aside class="success">all version</aside>
+
+<aside class="warning">如果需要在微信用设置分享内容，请使用unified-share组件。</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">share</span><span class="p">({</span>
   <span class="na">title</span><span class="p">:</span><span class="s2">"分享标题"</span><span class="p">,</span>
   <span class="na">desc</span><span class="p">:</span><span class="s2">"分享描述"</span><span class="p">,</span>
@@ -783,14 +785,19 @@ bizname: 调用<code class="prettyprint">publish</code><code class="prettyprint"
     <span class="nx">alert</span><span class="p">(</span><span class="s2">"按钮被点击"</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
-
-<span class="nx">DPMer</span><span class="p">.</span><span class="nx">setLLButton</span><span class="p">({</span>
-  <span class="na">disable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span><span class="c1">// 删除按钮</span>
-  <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">"设置成功"</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
 </code></pre>
+
+<blockquote>
+<p>删除按钮
+<code class="prettyprint">javascript
+DPMer.setLLButton({
+  disable: true,
+  success: function(){
+    alert(&quot;设置成功&quot;);
+  }
+});
+</code></p>
+</blockquote>
 
 <p>包含一组共4个方法。</p>
 
@@ -858,7 +865,7 @@ icon属性定义了本地资源的名称。
 
 <aside class="success">4.0+</aside>
 
-<aside class="warning">不包含&lsquo;data:image/png;base64,'，推荐图片大小22*22.</aside>
+<aside class="warning">不包含&lsquo;data:image/png;base64,'，base64的图片大小控制为 尺寸44X44(icon本身22X22)的三倍图，即132X132的画布，66X66的icon大小.</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">setLLButton</span><span class="p">({</span>
   <span class="na">type</span><span class="p">:</span> <span class="s1">'base64'</span><span class="p">,</span>
   <span class="na">icon</span><span class="p">:</span> <span class="s1">'/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAgGBgcGBQgHBw...=='</span><span class="p">,</span>
@@ -875,7 +882,7 @@ icon属性定义了本地资源的名称。
 
 <aside class="success">4.0+</aside>
 <pre class="highlight javascript"><code><span class="nx">DPMer</span><span class="p">.</span><span class="nx">enableSlideBack</span><span class="p">({</span>
-  <span class="na">canSlideBack</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">canSlideBack</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span><span class="c1">// false禁止左滑后退</span>
   <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){}</span>
 <span class="p">});</span>
 </code></pre>
