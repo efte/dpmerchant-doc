@@ -622,6 +622,16 @@ DPMer.setTitle({
 
 <aside class="notice">3.5.x及之前只支持设置标题，不支持设置副标题。</aside>
 
+## 设置tab标题红点
+<aside class="success">v4.2.0+</aside>
+
+```javascript
+setTitleRedDot({
+	index: 0,//按照次序
+	type: 0,// 0不展示 1纯红点 2text
+	context: '',//显示内容 内容较长会变成椭圆
+});
+```
 ## 下拉刷新
 <aside class="success">3.6.0+</aside>
 
