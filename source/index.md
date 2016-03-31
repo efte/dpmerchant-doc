@@ -8,9 +8,6 @@ toc_footers:
   - <a href='https://github.com/efte/dpmerchant-doc'>项目地址</a>
   - <a href='https://github.com/efte/dpmerchant-doc/issues'>Issue</a>
 
-includes:
-  - migration
-
 search: true
 ---
 
