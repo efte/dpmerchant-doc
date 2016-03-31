@@ -16,4 +16,4 @@ search: true
 
 # 概述
 
-文档已经迁移到公司内部网络http://ed.f2e.dp/dpmerchant/doc
+文档已经迁移到公司内部网络[http://ed.f2e.dp/dpmerchant/doc](http://ed.f2e.dp/dpmerchant/doc)
